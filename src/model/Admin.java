@@ -9,10 +9,25 @@ package model;
  *
  * @author Nicholas Russel
  */
-public class Admin extends Person{
-    
-    public Admin(String name, String nomorTelepon, String alamat, String ttl) {
-        super(name, nomorTelepon, alamat, ttl);
+public class Admin extends Person {
+
+    private double gaji;
+
+    public Admin() {
+
     }
-    
+
+    public Admin(String name, String nomorTelepon, String alamat, String ttl, int gaji) {
+        super(name, nomorTelepon, alamat, ttl);
+        setGaji(gaji);
+    }
+
+    public double getGaji() {
+        return gaji;
+    }
+
+    public void setGaji(double gaji) {
+        this.gaji = gaji;
+    }
+
 }
