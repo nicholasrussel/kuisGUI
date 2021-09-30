@@ -9,14 +9,14 @@ package model;
  *
  * @author ASUS
  */
-public class StokBarang {
+public class Barang {
     private String namaBarang;
     private String kodeBarang;
     private double hargaJual;
     private double hargaBeli;
     private int quantity;
 
-    public StokBarang(String namaBarang, String kodeBarang, double hargaJual, double hargaBeli, int quantity) {
+    public Barang(String namaBarang, String kodeBarang, double hargaJual, double hargaBeli, int quantity) {
        setNamaBarang(namaBarang);
        setKodeBarang(kodeBarang);
        setHargaJual(hargaJual);
