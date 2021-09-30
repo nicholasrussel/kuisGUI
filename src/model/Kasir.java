@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Kasir extends Person{
     private int gaji;
-    private ArrayList<String> listMataKuliahDiajar = new ArrayList();
+    private ArrayList<Kehadiran> listKehadiran = new ArrayList();
     public Kasir(String name, String nomorTelepon, String alamat, String ttl, int gaji) {
         super(name, nomorTelepon, alamat, ttl);
-        this.gaji = gaji;
+        setGaji(gaji);
     }
 
     public int getGaji() {
@@ -27,12 +27,12 @@ public class Kasir extends Person{
         this.gaji = gaji;
     }
 
-    public ArrayList<String> getListMataKuliahDiajar() {
-        return listMataKuliahDiajar;
+    public ArrayList<Kehadiran> getListKehadiran() {
+        return listKehadiran;
     }
 
-    public void setListMataKuliahDiajar(ArrayList<String> listMataKuliahDiajar) {
-        this.listMataKuliahDiajar = listMataKuliahDiajar;
+    public void setListMataKuliahDiajar(ArrayList<Kehadiran> listMataKuliahDiajar) {
+        this.listKehadiran = listMataKuliahDiajar;
     }
     
 }
