@@ -12,10 +12,12 @@ package model;
 public class ListPenjualan {
     private double labaKotor;
     private int quantity;
+    private String tanggalJual;
 
-    public ListPenjualan(double labaKotor, int quantity) {
+    public ListPenjualan(double labaKotor, int quantity,String tanggalJual) {
        setLabaKotor(labaKotor);
        setQuantity(quantity);
+       setTanggalJual(tanggalJual);
     }
 
     public double getLabaKotor() {
@@ -32,6 +34,14 @@ public class ListPenjualan {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getTanggalJual() {
+        return tanggalJual;
+    }
+
+    public void setTanggalJual(String tanggalJual) {
+        this.tanggalJual = tanggalJual;
     }
     
 }
