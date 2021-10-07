@@ -7,21 +7,21 @@ package model;
 
 /**
  *
- * @author ASUS
+ * @author Nicholas Russel
  */
 public class Barang {
     private String namaBarang;
     private String kodeBarang;
-    private double hargaJual;
-    private double hargaBeli;
     private int quantity;
+    private int hargaJual;
+    private int hargaBeli;
 
-    public Barang(String namaBarang, String kodeBarang, double hargaJual, double hargaBeli, int quantity) {
-       setNamaBarang(namaBarang);
-       setKodeBarang(kodeBarang);
-       setHargaJual(hargaJual);
-       setHargaBeli(hargaBeli);
-       setQuantity(quantity);
+    public Barang(String namaBarang, String kodeBarang, int quantity, int hargaJual, int hargaBeli) {
+        setNamaBarang(namaBarang);
+        setKodeBarang(kodeBarang);
+        setQuantity(quantity);
+        setHargaJual(hargaJual);
+        setHargaBeli(hargaBeli);
     }
 
     public String getNamaBarang() {
@@ -40,22 +40,6 @@ public class Barang {
         this.kodeBarang = kodeBarang;
     }
 
-    public double getHargaJual() {
-        return hargaJual;
-    }
-
-    public void setHargaJual(double hargaJual) {
-        this.hargaJual = hargaJual;
-    }
-
-    public double getHargaBeli() {
-        return hargaBeli;
-    }
-
-    public void setHargaBeli(double hargaBeli) {
-        this.hargaBeli = hargaBeli;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -63,5 +47,24 @@ public class Barang {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public int getHargaJual() {
+        return hargaJual;
+    }
+
+    public void setHargaJual(int hargaJual) {
+        this.hargaJual = hargaJual;
+    }
+
+    public int getHargaBeli() {
+        return hargaBeli;
+    }
+
+    public void setHargaBeli(int hargaBeli) {
+        this.hargaBeli = hargaBeli;
+    }
     
+    public Barang (){
+        
+    }
 }
