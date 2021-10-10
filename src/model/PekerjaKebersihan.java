@@ -9,18 +9,26 @@ import java.util.ArrayList;
  *
  * @author Nicholas Russel
  */
-public class Admin extends Person {
-
-    private double gaji;
+public class PekerjaKebersihan extends Employee{
+    
+    private double gajiPerJam;
     private ArrayList<Kehadiran> listKehadiran = new ArrayList();
 
-    public Admin(double gaji, String name, String nomorTelepon, String alamat, String ttl) {
-        super(name, nomorTelepon, alamat, ttl);
-        this.gaji = gaji;
+    public PekerjaKebersihan(double gajiPerJam, String NIK, String name, String nomorTelepon, String alamat, String ttl) {
+        super(NIK, name, nomorTelepon, alamat, ttl);
+        setGajiPerJam(gajiPerJam);
     }
-    
-    public Admin() {
 
+    public PekerjaKebersihan() {
+        
+    }
+
+    public double getGajiPerJam() {
+        return gajiPerJam;
+    }
+
+    public void setGajiPerJam(double gajiPerJam) {
+        this.gajiPerJam = gajiPerJam;
     }
 
     public ArrayList<Kehadiran> getListKehadiran() {
@@ -31,13 +39,4 @@ public class Admin extends Person {
         this.listKehadiran = listKehadiran;
     }
     
-
-    public double getGaji() {
-        return gaji;
-    }
-
-    public void setGaji(double gaji) {
-        this.gaji = gaji;
-    }
-
 }

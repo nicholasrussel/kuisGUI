@@ -11,28 +11,33 @@ import java.util.ArrayList;
  *
  * @author Nicholas Russel
  */
-public class Kasir extends Person{
-    private int gaji;
-    private ArrayList<String> listMataKuliahDiajar = new ArrayList();
-    public Kasir(String name, String nomorTelepon, String alamat, String ttl, int gaji) {
-        super(name, nomorTelepon, alamat, ttl);
-        this.gaji = gaji;
+public class Kasir extends Employee {
+
+    private double gaji;
+    private ArrayList<Kehadiran> listKehadiran = new ArrayList();
+
+    public Kasir(double gaji, String NIK, String name, String nomorTelepon, String alamat, String ttl) {
+        super(NIK, name, nomorTelepon, alamat, ttl);
+        setGaji(gaji);
     }
 
-    public int getGaji() {
+    public Kasir() {
+    }
+
+    public double getGaji() {
         return gaji;
     }
 
-    public void setGaji(int gaji) {
+    public void setGaji(double gaji) {
         this.gaji = gaji;
     }
 
-    public ArrayList<String> getListMataKuliahDiajar() {
-        return listMataKuliahDiajar;
+    public ArrayList<Kehadiran> getListKehadiran() {
+        return listKehadiran;
     }
 
-    public void setListMataKuliahDiajar(ArrayList<String> listMataKuliahDiajar) {
-        this.listMataKuliahDiajar = listMataKuliahDiajar;
+    public void setListKehadiran(ArrayList<Kehadiran> listKehadiran) {
+        this.listKehadiran = listKehadiran;
     }
-    
+
 }
