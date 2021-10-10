@@ -5,19 +5,31 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ASUS
  */
-public class ListPenjualan {
-    private double labaKotor;
-    private int quantity;
-    private String tanggalJual;
 
-    public ListPenjualan(double labaKotor, int quantity,String tanggalJual) {
+public class Penjualan {
+    private double labaKotor;
+    private String tanggalJual;
+    private ArrayList <Barang> barang = new ArrayList();
+    
+
+    public Penjualan(double labaKotor,String tanggalJual,Barang barang) {
        setLabaKotor(labaKotor);
-       setQuantity(quantity);
        setTanggalJual(tanggalJual);
+       setBarang(barang);
+    }
+
+    public ArrayList<Barang> getBarang() {
+        return barang;
+    }
+
+    public void setBarang(Barang barang) {
+        this.barang.add(barang);
     }
 
     public double getLabaKotor() {
@@ -26,14 +38,6 @@ public class ListPenjualan {
 
     public void setLabaKotor(double labaKotor) {
         this.labaKotor = labaKotor;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getTanggalJual() {
