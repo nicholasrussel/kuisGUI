@@ -11,33 +11,15 @@ import java.util.ArrayList;
  */
 public class Admin extends Person {
 
-    private double gaji;
-    private ArrayList<Kehadiran> listKehadiran = new ArrayList();
 
-    public Admin(double gaji, String name, String nomorTelepon, String alamat, String ttl) {
+    public Admin(String name, String nomorTelepon, String alamat, String ttl) {
         super(name, nomorTelepon, alamat, ttl);
-        this.gaji = gaji;
     }
     
     public Admin() {
 
     }
 
-    public ArrayList<Kehadiran> getListKehadiran() {
-        return listKehadiran;
-    }
 
-    public void setListKehadiran(ArrayList<Kehadiran> listKehadiran) {
-        this.listKehadiran = listKehadiran;
-    }
-    
-
-    public double getGaji() {
-        return gaji;
-    }
-
-    public void setGaji(double gaji) {
-        this.gaji = gaji;
-    }
 
 }
