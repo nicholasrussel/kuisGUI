@@ -11,13 +11,13 @@ import java.util.ArrayList;
  *
  * @author Nicholas Russel
  */
-public class Kasir extends Employee {
+public class Kasir extends Person {
 
     private double gaji;
     private ArrayList<Kehadiran> listKehadiran = new ArrayList();
 
-    public Kasir(double gaji, String NIK, String name, String nomorTelepon, String alamat, String ttl) {
-        super(NIK, name, nomorTelepon, alamat, ttl);
+    public Kasir(double gaji, String name, String nomorTelepon, String alamat, String ttl) {
+        super( name, nomorTelepon, alamat, ttl);
         setGaji(gaji);
     }
 
