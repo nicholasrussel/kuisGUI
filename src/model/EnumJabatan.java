@@ -9,9 +9,6 @@ package model;
  *
  * @author Nicholas Russel
  */
-public interface InterfaceKehadiran {
-    final int HADIR = 1;
-    final int ALPHA = 0;
-    
-    abstract String selectKehadiran(int status);
+public enum EnumJabatan {
+    ADMIN,KASIR;
 }

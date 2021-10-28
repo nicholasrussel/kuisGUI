@@ -9,23 +9,20 @@ package model;
  *
  * @author Nicholas Russel
  */
-public class Kehadiran {
-    private int status;
+public class Kehadiran implements InterfaceKehadiran{
+    private int id_person;
     private String tanggal;
-    private int totalJamMasuk;
-
-    public Kehadiran(int status, String tanggal, int totalJamMasuk) {
+    private int jumlahHari;
+    private int status;
+    public Kehadiran(){
+    
+    }
+    
+    public Kehadiran(int status, String tanggal, int jumlahHari,int id_person) {
+        setId_person(id_person);
         setStatus(status);
         setTanggal(tanggal);
-        setTotalJamMasuk(totalJamMasuk);
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
+        setJumlahHari(jumlahHari);
     }
 
     public String getTanggal() {
@@ -36,12 +33,46 @@ public class Kehadiran {
         this.tanggal = tanggal;
     }
 
-    public int getTotalJamMasuk() {
-        return totalJamMasuk;
+    public int getId_person() {
+        return id_person;
     }
 
-    public void setTotalJamMasuk(int totalJamMasuk) {
-        this.totalJamMasuk = totalJamMasuk;
+    public void setId_person(int id_person) {
+        this.id_person = id_person;
+    }
+
+    public int getJumlahHari() {
+        return jumlahHari;
+    }
+
+    public void setJumlahHari(int jumlahHari) {
+        this.jumlahHari = jumlahHari;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
+    public String toString(){
+        return "\nTanggal:\t"+getTanggal()+
+                "\nId Person:\t"+getId_person()+
+                "\njumlah hari:\t"+getJumlahHari()+
+                "\nStatus:\t\t"+selectKehadiran(status);
+    }
+
+    @Override
+    public String selectKehadiran(int status) {
+        switch(status) {
+            case HADIR :
+                return "hadir";
+            case ALPHA :
+                return "alpha";
+        }
+        return "";
     }
     
     

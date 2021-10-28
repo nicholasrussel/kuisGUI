@@ -11,15 +11,20 @@ import java.util.ArrayList;
  */
 public class Admin extends Person {
 
-
-    public Admin(String name, String nomorTelepon, String alamat, String ttl) {
-        super(name, nomorTelepon, alamat, ttl);
+    public Admin(String name, String nomorTelepon, String alamat, String ttl, int id_person, String password, EnumJabatan jabatan) {
+        super(name, nomorTelepon, alamat, ttl, id_person, password, jabatan);
     }
-    
+
     public Admin() {
 
     }
-
-
-
+    @Override
+    public String toString(){
+        return "\nId Person:\t"+getId_person()+
+                "\nName:\t\t"+getName()+
+                "\nTTL:\t\t"+getTtl()+
+                "\nAlamat:\t\t"+getAlamat()+
+                "\nTelepon:\t"+getNomorTelepon()+
+                "\nJabatan:\t"+getJabatan();
+    }
 }

@@ -14,12 +14,18 @@ public abstract class Person {
     private String nomorTelepon;
     private String alamat;
     private String ttl;
+    private int id_person;
+    private String password;
+    private EnumJabatan jabatan;
 
-    public Person(String name, String nomorTelepon, String alamat, String ttl) {
+    public Person(String name, String nomorTelepon, String alamat, String ttl,int id_person,String password,EnumJabatan jabatan) {
         setName(name);
         setNomorTelepon(nomorTelepon);
         setAlamat(alamat);
         setTtl(ttl);
+        setId_person(id_person);
+        setPassword(password);
+        setJabatan(jabatan);
     }
     public Person(){
     }
@@ -56,10 +62,29 @@ public abstract class Person {
         this.ttl = ttl;
     }
 
-    public String toString(){
-        return "\nName:\t\t"+getName()+
-                "\nTTL:\t\t"+getTtl()+
-                "\nAlamat:\t\t"+getAlamat()+
-                "\nTelepon:\t"+getNomorTelepon();
+    public int getId_person() {
+        return id_person;
     }
+
+    public void setId_person(int id_person) {
+        this.id_person = id_person;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public EnumJabatan getJabatan() {
+        return jabatan;
+    }
+
+    public void setJabatan(EnumJabatan jabatan) {
+        this.jabatan = jabatan;
+    }
+
+    
 }
