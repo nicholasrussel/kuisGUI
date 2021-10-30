@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package main;
 
+import controller.Controller;
 import java.util.ArrayList;
 import model.*;
 import view.*;
@@ -15,7 +16,7 @@ import view.*;
 public class Main {
     public Main() {
         Controller controller =  new Controller();
-        ArrayList<Person> users = controller.getAllUsers();
+        ArrayList<Person> users = controller.getAllKasirs();
         for (Person user : users) {
             System.out.println(user.toString());
         }

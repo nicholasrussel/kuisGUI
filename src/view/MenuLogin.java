@@ -109,24 +109,35 @@ public class MenuLogin extends JFrame implements ActionListener {
 //
 //    }
     public void actionPerformed(ActionEvent event) {
-
-        int userID = Integer.parseInt(tID.getText());
-        String password = String.valueOf(tpass.getPassword());
         conn.connect();
         Controller c = new Controller();
+        int userID = Integer.parseInt(tID.getText());
+        String password = c.getMD5(String.valueOf(tpass.getPassword()));
 
-        String oldPassword = c.getSelectedPassword(userID);
+        String pass = password.substring(0, 30);
+
+
         try {
-            String sql = "SELECT * FROM person WHERE Id_Person = '" + userID + "' AND Password = '" + password + "'";
+            String sql = "SELECT * FROM person WHERE Id_Person = '" + userID + "'";
             Statement st = conn.con.createStatement();
             ResultSet rsLogin = st.executeQuery(sql);
-
-//            rsLogin.last(); //mengecek jumlah baris pada hasil query
+            
             if (rsLogin.next()) {
-                if (userID==rsLogin.getInt("userID") && password.equals(rsLogin.getString("Password"))) {
+                if (pass.equals(c.getSelectedPassword(userID))) {
                     JOptionPane.showMessageDialog(null, "Login Berhasil!");
-                    // new FrmMenuUtama().setVisible(true); //<-- BILA MAU DIARAHKAN KE Frame Menu Utama
-                    this.dispose();
+                    String jabatan = c.getSelectedJabatan(userID).toLowerCase();
+                    String jabatanKasir = EnumJabatan.KASIR.toString().toLowerCase();
+                    String jabatanAdmin = EnumJabatan.ADMIN.toString().toLowerCase();
+                    if (jabatan.equals(jabatanKasir)) {
+                        new MainMenuKasir();
+                        this.dispose();
+                    } else {
+                        new MainMenuAdmin();
+                        this.dispose();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Password Salah");
                 }
 
             } else {

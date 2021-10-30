@@ -5,24 +5,29 @@
  */
 package controller;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.*;
+
 /**
  *
  * @author Nicholas Russel
  */
 public class Controller {
+
     static DatabaseHandler conn = new DatabaseHandler();
 
     // SELECT ALL from table person
     public static ArrayList<Person> getAllKasirs() {
         ArrayList<Person> persons = new ArrayList<>();
         conn.connect();
-        String query = "SELECT * FROM person WHERE Jabatan = '"+EnumJabatan.KASIR+"'";
+        String query = "SELECT * FROM person WHERE Jabatan = '" + EnumJabatan.KASIR + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -41,7 +46,7 @@ public class Controller {
         }
         return (persons);
     }
-    
+
     // SELECT ALL from table barang
     public static ArrayList<Kehadiran> getAllKehadiran() {
         ArrayList<Kehadiran> Kehadirans = new ArrayList<>();
@@ -64,10 +69,11 @@ public class Controller {
         }
         return (Kehadirans);
     }
+
     public String getSelectedPassword(int ID) {
         String password = "";
         conn.connect();
-        String query = "SELECT * FROM person WHERE Id_Person = '"+ID+"'";
+        String query = "SELECT * FROM person WHERE Id_Person = '" + ID + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -79,9 +85,25 @@ public class Controller {
         }
         return password;
     }
+    public String getSelectedJabatan(int ID){
+        String jabatan = "";
+        conn.connect();
+        String query = "SELECT * FROM person WHERE Id_Person = '" + ID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                jabatan = rs.getString("Jabatan");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jabatan;
+    }
+
     public Person getKasir(int ID) {
         conn.connect();
-        String query = "SELECT * FROM person WHERE Id_Person='" + ID +"'";
+        String query = "SELECT * FROM person WHERE Id_Person='" + ID + "'";
         Person person = new Kasir();
         try {
             Statement stmt = conn.con.createStatement();
@@ -94,4 +116,28 @@ public class Controller {
         }
         return (person);
     }
+
+    public String getMD5(String password) {
+        try {
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 }
