@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Admin extends Person {
 
-    public Admin(String name, String nomorTelepon, String alamat, String ttl, int id_person, String password, EnumJabatan jabatan) {
-        super(name, nomorTelepon, alamat, ttl, id_person, password, jabatan);
+    public Admin(String name, String nomorTelepon, String alamat, String ttl,String gender, int id_person, String password, EnumJabatan jabatan) {
+        super(name, nomorTelepon, alamat, ttl,gender, id_person, password, jabatan);
     }
 
     public Admin() {

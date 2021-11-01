@@ -13,22 +13,22 @@ import java.util.ArrayList;
  */
 public class Kasir extends Person {
 
-    private double gaji;
+    private int gaji;
     private ArrayList<Kehadiran> listKehadiran = new ArrayList();
 
-    public Kasir(String name, String nomorTelepon, String alamat, String ttl, int id_person, String password, EnumJabatan jabatan) {
-        super(name, nomorTelepon, alamat, ttl, id_person, password, jabatan);
+    public Kasir(String name, String nomorTelepon, String alamat, String ttl,String gender,int id_person, String password, EnumJabatan jabatan) {
+        super(name, nomorTelepon, alamat, ttl,gender, id_person, password, jabatan);
         setGaji(gaji);
     }
 
     public Kasir() {
     }
 
-    public double getGaji() {
+    public int getGaji() {
         return gaji;
     }
 
-    public void setGaji(double gaji) {
+    public void setGaji(int gaji) {
         this.gaji = gaji;
     }
 
@@ -46,6 +46,7 @@ public class Kasir extends Person {
                 "\nTTL:\t\t"+getTtl()+
                 "\nAlamat:\t\t"+getAlamat()+
                 "\nTelepon:\t"+getNomorTelepon()+
-                "\nJabatan:\t"+getJabatan();
+                "\nJabatan:\t"+getJabatan()+
+                "\nGaji:\t"+getGaji();
     }
 }

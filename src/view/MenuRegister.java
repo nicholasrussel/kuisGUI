@@ -3,252 +3,359 @@
 // using Java Swing
 package view;
 
+import controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Properties;
+import model.*;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
-public class MenuRegister extends JFrame implements ActionListener {
+public class MenuRegister {
 
     // Components of the Form
-    private Container c;
-    private JLabel title;
-    private JLabel name;
-    private JTextField tname;
-    private JLabel mno;
-    private JTextField tmno;
-    private JLabel gender;
-    private JRadioButton male;
-    private JRadioButton female;
+//    private UtilDateModel model;
+//    private Properties p;
+//    private JDatePanelImpl datePanel;
+//    private JDatePickerImpl datePicker;
+    private JLabel title, name, mno, gender, tempatLahir, tanggalLahir, alamat, jabatan, password, gaji;
+    private JPasswordField tpassword;
+    private JTextField tname, tmno, tjabatan, ttempatLahir, tgaji;
+    private JRadioButton male, female;
     private ButtonGroup gengp;
-    private JLabel dob;
-    private JComboBox date;
-    private JComboBox month;
-    private JComboBox year;
-    private JLabel add;
-    private JTextArea tadd;
-    private JCheckBox term;
-    private JButton sub;
-    private JButton reset;
-    private JTextArea tout;
-    private JLabel res;
-    private JTextArea resadd;
+    private JButton sub, reset, cancel;
+    private JTextArea talamat;
 
-    private String dates[]
-            = {"1", "2", "3", "4", "5",
-                "6", "7", "8", "9", "10",
-                "11", "12", "13", "14", "15",
-                "16", "17", "18", "19", "20",
-                "21", "22", "23", "24", "25",
-                "26", "27", "28", "29", "30",
-                "31"};
-    private String months[]
-            = {"Jan", "feb", "Mar", "Apr",
-                "May", "Jun", "July", "Aug",
-                "Sup", "Oct", "Nov", "Dec"};
-    private String years[]
-            = {"1995", "1996", "1997", "1998",
-                "1999", "2000", "2001", "2002",
-                "2003", "2004", "2005", "2006",
-                "2007", "2008", "2009", "2010",
-                "2011", "2012", "2013", "2014",
-                "2015", "2016", "2017", "2018",
-                "2019"};
-
-    // constructor, to initialize the components
-    // with default values.
     public MenuRegister() {
-        setTitle("Registration Form");
-        setBounds(300, 90, 900, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-
-        c = getContentPane();
-        c.setLayout(null);
+        JFrame f = new JFrame();
+        f.setTitle("Registration");
+        f.setSize(800, 800);
+        f.setResizable(false);
+        f.setLayout(null);
 
         title = new JLabel("Registration Form");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setSize(300, 30);
         title.setLocation(300, 30);
-        c.add(title);
+        f.add(title);
 
         name = new JLabel("Name");
-        name.setFont(new Font("Arial", Font.PLAIN, 20));
-        name.setSize(100, 20);
+        name.setFont(new Font("Arial", Font.PLAIN, 15));
+        name.setSize(300, 20);
         name.setLocation(100, 100);
-        c.add(name);
+        f.add(name);
 
         tname = new JTextField();
         tname.setFont(new Font("Arial", Font.PLAIN, 15));
-        tname.setSize(190, 20);
+        tname.setSize(200, 20);
         tname.setLocation(200, 100);
-        c.add(tname);
+        f.add(tname);
 
-        mno = new JLabel("Mobile");
-        mno.setFont(new Font("Arial", Font.PLAIN, 20));
-        mno.setSize(100, 20);
+        mno = new JLabel("Nomor Telepon");
+        mno.setFont(new Font("Arial", Font.PLAIN, 15));
+        mno.setSize(300, 20);
         mno.setLocation(100, 150);
-        c.add(mno);
+        f.add(mno);
 
         tmno = new JTextField();
         tmno.setFont(new Font("Arial", Font.PLAIN, 15));
-        tmno.setSize(150, 20);
+        tmno.setSize(200, 20);
         tmno.setLocation(200, 150);
-        c.add(tmno);
+        f.add(tmno);
+
+        jabatan = new JLabel("Jabatan");
+        jabatan.setFont(new Font("Arial", Font.PLAIN, 15));
+        jabatan.setSize(300, 20);
+        jabatan.setLocation(100, 200);
+        f.add(jabatan);
+
+        tjabatan = new JTextField();
+        tjabatan.setFont(new Font("Arial", Font.PLAIN, 15));
+        tjabatan.setSize(200, 20);
+        tjabatan.setLocation(200, 200);
+        f.add(tjabatan);
 
         gender = new JLabel("Gender");
-        gender.setFont(new Font("Arial", Font.PLAIN, 20));
-        gender.setSize(100, 20);
-        gender.setLocation(100, 200);
-        c.add(gender);
+        gender.setFont(new Font("Arial", Font.PLAIN, 15));
+        gender.setSize(300, 20);
+        gender.setLocation(100, 250);
+        f.add(gender);
 
         male = new JRadioButton("Male");
         male.setFont(new Font("Arial", Font.PLAIN, 15));
         male.setSelected(true);
         male.setSize(75, 20);
-        male.setLocation(200, 200);
-        c.add(male);
+        male.setLocation(200, 250);
+        f.add(male);
 
         female = new JRadioButton("Female");
         female.setFont(new Font("Arial", Font.PLAIN, 15));
         female.setSelected(false);
         female.setSize(80, 20);
-        female.setLocation(275, 200);
-        c.add(female);
+        female.setLocation(275, 250);
+        f.add(female);
 
         gengp = new ButtonGroup();
         gengp.add(male);
         gengp.add(female);
 
-        dob = new JLabel("DOB");
-        dob.setFont(new Font("Arial", Font.PLAIN, 20));
-        dob.setSize(100, 20);
-        dob.setLocation(100, 250);
-        c.add(dob);
+        tempatLahir = new JLabel("Tempat Lahir");
+        tempatLahir.setFont(new Font("Arial", Font.PLAIN, 15));
+        tempatLahir.setSize(300, 20);
+        tempatLahir.setLocation(100, 300);
+        f.add(tempatLahir);
 
-        date = new JComboBox(dates);
-        date.setFont(new Font("Arial", Font.PLAIN, 15));
-        date.setSize(50, 20);
-        date.setLocation(200, 250);
-        c.add(date);
+        ttempatLahir = new JTextField();
+        ttempatLahir.setFont(new Font("Arial", Font.PLAIN, 15));
+        ttempatLahir.setSize(200, 20);
+        ttempatLahir.setLocation(200, 300);
+        f.add(ttempatLahir);
 
-        month = new JComboBox(months);
-        month.setFont(new Font("Arial", Font.PLAIN, 15));
-        month.setSize(60, 20);
-        month.setLocation(250, 250);
-        c.add(month);
+        tanggalLahir = new JLabel("Tanggal Lahir");
+        tanggalLahir.setFont(new Font("Arial", Font.PLAIN, 15));
+        tanggalLahir.setSize(300, 20);
+        tanggalLahir.setLocation(100, 350);
+        f.add(tanggalLahir);
 
-        year = new JComboBox(years);
-        year.setFont(new Font("Arial", Font.PLAIN, 15));
-        year.setSize(60, 20);
-        year.setLocation(320, 250);
-        c.add(year);
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new controller.DateFormatter());
+        datePicker.setBounds(200, 350, 200, 50);
+        f.add(datePicker);
 
-        add = new JLabel("Address");
-        add.setFont(new Font("Arial", Font.PLAIN, 20));
-        add.setSize(100, 20);
-        add.setLocation(100, 300);
-        c.add(add);
+        gaji = new JLabel("Gaji");
+        gaji.setFont(new Font("Arial", Font.PLAIN, 15));
+        gaji.setSize(300, 20);
+        gaji.setLocation(100, 400);
+        f.add(gaji);
 
-        tadd = new JTextArea();
-        tadd.setFont(new Font("Arial", Font.PLAIN, 15));
-        tadd.setSize(200, 75);
-        tadd.setLocation(200, 300);
-        tadd.setLineWrap(true);
-        c.add(tadd);
+        tgaji = new JTextField();
+        tgaji.setFont(new Font("Arial", Font.PLAIN, 15));
+        tgaji.setSize(200, 20);
+        tgaji.setLocation(200, 400);
+        f.add(tgaji);
 
-        term = new JCheckBox("Accept Terms And Conditions.");
-        term.setFont(new Font("Arial", Font.PLAIN, 15));
-        term.setSize(250, 20);
-        term.setLocation(150, 400);
-        c.add(term);
+        password = new JLabel("Password");
+        password.setFont(new Font("Arial", Font.PLAIN, 15));
+        password.setSize(300, 20);
+        password.setLocation(100, 450);
+        f.add(password);
+
+        tpassword = new JPasswordField();
+        tpassword.setFont(new Font("Arial", Font.PLAIN, 15));
+        tpassword.setSize(200, 20);
+        tpassword.setLocation(200, 450);
+        f.add(tpassword);
+
+        alamat = new JLabel("Alamat");
+        alamat.setFont(new Font("Arial", Font.PLAIN, 15));
+        alamat.setSize(300, 20);
+        alamat.setLocation(100, 500);
+        f.add(alamat);
+
+        talamat = new JTextArea();
+        talamat.setFont(new Font("Arial", Font.PLAIN, 15));
+        talamat.setSize(200, 75);
+        talamat.setLocation(200, 500);
+        talamat.setLineWrap(true);
+        f.add(talamat);
 
         sub = new JButton("Submit");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
         sub.setSize(100, 20);
-        sub.setLocation(150, 450);
-        sub.addActionListener(this);
-        c.add(sub);
+        sub.setLocation(150, 600);
+        sub.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(false);
+                JFrame f2 = new JFrame();
+                f2.setTitle("Check Again");
+                f2.setSize(800, 800);
+                f2.setResizable(false);
+                f2.setLayout(null);
+                JLabel nama, mno, jabatan, tempatTanggalLahir, alamat, gender, password, gaji, warning;
+                JPasswordField pass;
+                JButton insert;
+                int cekGaji = Integer.parseInt(tgaji.getText());
+                String cekNama = tname.getText();
+                String cekmno = tmno.getText();
+                String cekJabatan = tjabatan.getText().toLowerCase();
+                String cekTempatLahir = ttempatLahir.getText();
+                String cekAlamat = talamat.getText();
+                String cekGender = "";
+                String cekPassword = String.valueOf(tpassword.getPassword());
+                String cekTanggalLahir = datePicker.getModel().getValue().toString();
+                String TTL = cekTempatLahir + "," + cekTanggalLahir;
+                EnumJabatan j;
+                if (cekJabatan.equals("kasir")) {
+                    j = EnumJabatan.KASIR;
+                } else {
+                    j = EnumJabatan.ADMIN;
+                }
+
+                if (male.isSelected()) {
+                    cekGender = male.getText();
+                } else if (female.isSelected()) {
+                    cekGender = female.getText();
+                }
+
+                nama = new JLabel("Nama : " + cekNama);
+                nama.setFont(new Font("Arial", Font.PLAIN, 20));
+                nama.setSize(300, 20);
+                nama.setLocation(100, 100);
+                f2.add(nama);
+
+                mno = new JLabel("Nomor Telepon : " + cekmno);
+                mno.setFont(new Font("Arial", Font.PLAIN, 20));
+                mno.setSize(300, 20);
+                mno.setLocation(100, 150);
+                f2.add(mno);
+
+                jabatan = new JLabel("Jabatan : " + cekJabatan);
+                jabatan.setFont(new Font("Arial", Font.PLAIN, 20));
+                jabatan.setSize(300, 20);
+                jabatan.setLocation(100, 200);
+                f2.add(jabatan);
+
+                tempatTanggalLahir = new JLabel("TTL : " + TTL);
+                tempatTanggalLahir.setFont(new Font("Arial", Font.PLAIN, 20));
+                tempatTanggalLahir.setSize(300, 20);
+                tempatTanggalLahir.setLocation(100, 250);
+                f2.add(tempatTanggalLahir);
+
+                alamat = new JLabel("Alamat : " + cekAlamat);
+                alamat.setFont(new Font("Arial", Font.PLAIN, 20));
+                alamat.setSize(300, 20);
+                alamat.setLocation(100, 300);
+                f2.add(alamat);
+
+                gender = new JLabel("Gender : " + cekGender);
+                gender.setFont(new Font("Arial", Font.PLAIN, 20));
+                gender.setSize(300, 20);
+                gender.setLocation(100, 350);
+                f2.add(gender);
+
+                password = new JLabel("Retype Password : ");
+                password.setFont(new Font("Arial", Font.PLAIN, 20));
+                password.setSize(200, 20);
+                password.setLocation(100, 400);
+                f2.add(password);
+
+                pass = new JPasswordField();
+                pass.setSize(300, 20);
+                pass.setLocation(200, 400);
+                f2.add(pass);
+
+                gaji = new JLabel("Gaji : " + cekGaji);
+                gaji.setFont(new Font("Arial", Font.PLAIN, 20));
+                gaji.setSize(300, 20);
+                gaji.setLocation(100, 450);
+                f2.add(gaji);
+
+                String kirimGender = cekGender;
+
+                warning = new JLabel("");
+                warning.setFont(new Font("Arial", Font.PLAIN, 15));
+                warning.setSize(300, 20);
+                warning.setLocation(100, 500);
+                f2.add(warning);
+
+                insert = new JButton("Insert");
+                insert.setSize(100, 20);
+                insert.setLocation(100, 600);
+                insert.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        String cekpass = String.valueOf(pass.getPassword());
+                        f.setVisible(false);
+
+                        if (cekpass.equals(cekPassword)) {
+                            warning.setText("Registration complete");
+                            Controller c = new Controller();
+                            String hashedPass = c.getMD5(String.valueOf(pass.getPassword()));
+                            String subHashedPass = hashedPass.substring(0, 30);
+                            Kasir newPerson = new Kasir();
+                            newPerson.setName(cekNama);
+                            newPerson.setAlamat(cekAlamat);
+                            newPerson.setGender(kirimGender);
+                            newPerson.setJabatan(j);
+                            newPerson.setNomorTelepon(cekmno);
+                            newPerson.setTtl(TTL);
+                            newPerson.setPassword(subHashedPass);
+                            newPerson.setGaji(cekGaji);
+                            boolean status = c.insertNewUser(newPerson);
+                            if (status) {
+                                JOptionPane.showMessageDialog(null, "isi data berhasil");
+                                f2.setVisible(false);
+                                new MainMenuAdmin();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "isi data gagal");
+                                f2.setVisible(false);
+                                new MainMenuAdmin();
+                            }
+                        } else {
+                            warning.setText("Password harus sesuai!");
+                        }
+
+                    }
+                });
+                f2.add(insert);
+
+                cancel = new JButton("Cancel");
+                cancel.setFont(new Font("Arial", Font.PLAIN, 15));
+                cancel.setSize(100, 20);
+                cancel.setLocation(250, 600);
+                cancel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        f2.setVisible(false);
+                        f.setVisible(true);
+                    }
+                });
+                f.add(cancel);
+                f2.setVisible(true);
+            }
+        });
+        f.add(sub);
 
         reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
         reset.setSize(100, 20);
-        reset.setLocation(270, 450);
-        reset.addActionListener(this);
-        c.add(reset);
-
-        tout = new JTextArea();
-        tout.setFont(new Font("Arial", Font.PLAIN, 15));
-        tout.setSize(300, 400);
-        tout.setLocation(500, 100);
-        tout.setLineWrap(true);
-        tout.setEditable(false);
-        c.add(tout);
-
-        res = new JLabel("");
-        res.setFont(new Font("Arial", Font.PLAIN, 20));
-        res.setSize(500, 25);
-        res.setLocation(100, 500);
-        c.add(res);
-
-        resadd = new JTextArea();
-        resadd.setFont(new Font("Arial", Font.PLAIN, 15));
-        resadd.setSize(200, 75);
-        resadd.setLocation(580, 175);
-        resadd.setLineWrap(true);
-        c.add(resadd);
-
-        setVisible(true);
-    }
-
-    // method actionPerformed()
-    // to get the action performed
-    // by the user and act accordingly
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == sub) {
-            if (term.isSelected()) {
-                String data1;
-                String data
-                        = "Name : "
-                        + tname.getText() + "\n"
-                        + "Mobile : "
-                        + tmno.getText() + "\n";
-                if (male.isSelected()) {
-                    data1 = "Gender : Male"
-                            + "\n";
-                } else {
-                    data1 = "Gender : Female"
-                            + "\n";
-                }
-                String data2
-                        = "DOB : "
-                        + (String) date.getSelectedItem()
-                        + "/" + (String) month.getSelectedItem()
-                        + "/" + (String) year.getSelectedItem()
-                        + "\n";
-
-                String data3 = "Address : " + tadd.getText();
-                tout.setText(data + data1 + data2 + data3);
-                tout.setEditable(false);
-                res.setText("Registration Successfully..");
-            } else {
-                tout.setText("");
-                resadd.setText("");
-                res.setText("Please accept the"
-                        + " terms & conditions..");
+        reset.setLocation(250, 600);
+        reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String def = "";
+                tname.setText(def);
+                tjabatan.setText(def);
+                tmno.setText(def);
+                talamat.setText(def);
+                tgaji.setText(def);
+                ttempatLahir.setText(def);
+                tpassword.setText(def);
             }
-        } else if (e.getSource() == reset) {
-            String def = "";
-            tname.setText(def);
-            tadd.setText(def);
-            tmno.setText(def);
-            res.setText(def);
-            tout.setText(def);
-            term.setSelected(false);
-            date.setSelectedIndex(0);
-            month.setSelectedIndex(0);
-            year.setSelectedIndex(0);
-            resadd.setText(def);
-        }
+        });
+        f.add(reset);
+        cancel = new JButton("Cancel");
+        cancel.setFont(new Font("Arial", Font.PLAIN, 15));
+        cancel.setSize(100, 20);
+        cancel.setLocation(250, 600);
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(false);
+                new MainMenuAdmin();
+            }
+        });
+        f.add(cancel);
+        f.setVisible(true);
     }
-}
 
+}

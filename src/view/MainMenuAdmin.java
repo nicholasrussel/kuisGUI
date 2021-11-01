@@ -29,24 +29,7 @@ public class MainMenuAdmin extends JFrame implements ActionListener {
     // Components of the Form
     private Container c;
     private JLabel title;
-    private JLabel name;
-    private JTextField tname;
-    private JLabel mno;
-    private JTextField tmno;
-    private JLabel gender;
-    private JRadioButton male;
-    private JRadioButton female;
-    private ButtonGroup gengp;
-    private JLabel dob;
-    private JComboBox date;
-    private JComboBox month;
-    private JComboBox year;
-    private JLabel add;
-    private JTextArea tadd;
-    private JCheckBox term;
-    private JButton sub;
-    private JButton reset;
-
+    private JButton registerKasir,updateKasir,deleteKasir;
 
     public MainMenuAdmin() {
         setTitle("Menu Admin");
@@ -58,98 +41,49 @@ public class MainMenuAdmin extends JFrame implements ActionListener {
         c.setLayout(null);
 
         title = new JLabel("Selamat Datang di Menu Admin");
-        title.setFont(new Font("Arial", Font.PLAIN, 30));
-        title.setSize(300, 30);
+        title.setFont(new Font("Arial", Font.PLAIN, 20));
+        title.setSize(400, 30);
         title.setLocation(300, 30);
         c.add(title);
 
-        name = new JLabel("Name");
-        name.setFont(new Font("Arial", Font.PLAIN, 20));
-        name.setSize(100, 20);
-        name.setLocation(100, 100);
-        c.add(name);
-
-        tname = new JTextField();
-        tname.setFont(new Font("Arial", Font.PLAIN, 15));
-        tname.setSize(190, 20);
-        tname.setLocation(200, 100);
-        c.add(tname);
-
-        mno = new JLabel("Mobile");
-        mno.setFont(new Font("Arial", Font.PLAIN, 20));
-        mno.setSize(100, 20);
-        mno.setLocation(100, 150);
-        c.add(mno);
-
-        tmno = new JTextField();
-        tmno.setFont(new Font("Arial", Font.PLAIN, 15));
-        tmno.setSize(150, 20);
-        tmno.setLocation(200, 150);
-        c.add(tmno);
-
-        gender = new JLabel("Gender");
-        gender.setFont(new Font("Arial", Font.PLAIN, 20));
-        gender.setSize(100, 20);
-        gender.setLocation(100, 200);
-        c.add(gender);
-
-        male = new JRadioButton("Male");
-        male.setFont(new Font("Arial", Font.PLAIN, 15));
-        male.setSelected(true);
-        male.setSize(75, 20);
-        male.setLocation(200, 200);
-        c.add(male);
-
-        female = new JRadioButton("Female");
-        female.setFont(new Font("Arial", Font.PLAIN, 15));
-        female.setSelected(false);
-        female.setSize(80, 20);
-        female.setLocation(275, 200);
-        c.add(female);
-
-        gengp = new ButtonGroup();
-        gengp.add(male);
-        gengp.add(female);
-
-        dob = new JLabel("DOB");
-        dob.setFont(new Font("Arial", Font.PLAIN, 20));
-        dob.setSize(100, 20);
-        dob.setLocation(100, 250);
-        c.add(dob);
-
-        add = new JLabel("Address");
-        add.setFont(new Font("Arial", Font.PLAIN, 20));
-        add.setSize(100, 20);
-        add.setLocation(100, 300);
-        c.add(add);
-
-        tadd = new JTextArea();
-        tadd.setFont(new Font("Arial", Font.PLAIN, 15));
-        tadd.setSize(200, 75);
-        tadd.setLocation(200, 300);
-        tadd.setLineWrap(true);
-        c.add(tadd);
-
-        term = new JCheckBox("Accept Terms And Conditions.");
-        term.setFont(new Font("Arial", Font.PLAIN, 15));
-        term.setSize(250, 20);
-        term.setLocation(150, 400);
-        c.add(term);
-
-        sub = new JButton("Register Kasir Baru");
-        sub.setFont(new Font("Arial", Font.PLAIN, 15));
-        sub.setSize(100, 20);
-        sub.setLocation(10, 450);
-        sub.addActionListener(this);
-        c.add(sub);
-
-        reset = new JButton("Reset");
-        reset.setFont(new Font("Arial", Font.PLAIN, 15));
-        reset.setSize(100, 20);
-        reset.setLocation(270, 450);
-        reset.addActionListener(this);
-        c.add(reset);
-
+        registerKasir = new JButton("Register Kasir");
+        registerKasir.setFont(new Font("Arial", Font.PLAIN, 15));
+        registerKasir.setSize(300, 20);
+        registerKasir.setLocation(10, 100);
+        registerKasir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new MenuRegister();
+            }
+        });
+        c.add(registerKasir);
+        
+        updateKasir = new JButton("Update Kasir");
+        updateKasir.setFont(new Font("Arial", Font.PLAIN, 15));
+        updateKasir.setSize(300, 20);
+        updateKasir.setLocation(10, 150);
+        updateKasir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new MenuUpdateDataKasir();
+            }
+        });
+        c.add(updateKasir);
+        
+        deleteKasir = new JButton("Delete Kasir");
+        deleteKasir.setFont(new Font("Arial", Font.PLAIN, 15));
+        deleteKasir.setSize(300, 20);
+        deleteKasir.setLocation(10, 200);
+        deleteKasir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new MenuDeleteKasir();
+            }
+        });
+        c.add(deleteKasir);
         setVisible(true);
     }
 
@@ -157,7 +91,7 @@ public class MainMenuAdmin extends JFrame implements ActionListener {
     // to get the action performed
     // by the user and act accordingly
     public void actionPerformed(ActionEvent e) {
-
+        
     }
 }
     

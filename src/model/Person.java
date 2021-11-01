@@ -14,15 +14,17 @@ public abstract class Person {
     private String nomorTelepon;
     private String alamat;
     private String ttl;
+    private String gender;
     private int id_person;
     private String password;
     private EnumJabatan jabatan;
 
-    public Person(String name, String nomorTelepon, String alamat, String ttl,int id_person,String password,EnumJabatan jabatan) {
+    public Person(String name, String nomorTelepon, String alamat, String ttl,String gender,int id_person,String password,EnumJabatan jabatan) {
         setName(name);
         setNomorTelepon(nomorTelepon);
         setAlamat(alamat);
         setTtl(ttl);
+        setGender(gender);
         setId_person(id_person);
         setPassword(password);
         setJabatan(jabatan);
@@ -62,6 +64,14 @@ public abstract class Person {
         this.ttl = ttl;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
     public int getId_person() {
         return id_person;
     }

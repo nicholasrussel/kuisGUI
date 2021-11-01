@@ -16,8 +16,8 @@ import view.*;
 public class Main {
     public Main() {
         Controller controller =  new Controller();
-        ArrayList<Person> users = controller.getAllKasirs();
-        for (Person user : users) {
+        ArrayList<Kasir> users = controller.getAllKasirs();
+        for (Kasir user : users) {
             System.out.println(user.toString());
         }
         ArrayList<Kehadiran> hadir = controller.getAllKehadiran();
