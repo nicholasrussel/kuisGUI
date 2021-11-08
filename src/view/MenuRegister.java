@@ -15,25 +15,26 @@ import org.jdatepicker.impl.UtilDateModel;
 
 public class MenuRegister {
 
-    // Components of the Form
-//    private UtilDateModel model;
-//    private Properties p;
-//    private JDatePanelImpl datePanel;
-//    private JDatePickerImpl datePicker;
+    private JFrame f, f2;
     private JLabel title, name, mno, gender, tempatLahir, tanggalLahir, alamat, jabatan, password, gaji;
     private JPasswordField tpassword;
     private JTextField tname, tmno, tjabatan, ttempatLahir, tgaji;
     private JRadioButton male, female;
     private ButtonGroup gengp;
-    private JButton sub, reset, cancel;
+    private JButton sub, reset, cancel,cancel2;
     private JTextArea talamat;
+    private UtilDateModel model;
+    private Properties p;
+    private JDatePanelImpl datePanel;
+    private JDatePickerImpl datePicker;
 
     public MenuRegister() {
-        JFrame f = new JFrame();
+        f = new JFrame();
         f.setTitle("Registration");
         f.setSize(800, 800);
         f.setResizable(false);
         f.setLayout(null);
+        f.setLocationRelativeTo(null);
 
         title = new JLabel("Registration Form");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -119,13 +120,13 @@ public class MenuRegister {
         tanggalLahir.setLocation(100, 350);
         f.add(tanggalLahir);
 
-        UtilDateModel model = new UtilDateModel();
-        Properties p = new Properties();
+        model = new UtilDateModel();
+        p = new Properties();
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new controller.DateFormatter());
+        datePanel = new JDatePanelImpl(model, p);
+        datePicker = new JDatePickerImpl(datePanel, new controller.DateFormatter());
         datePicker.setBounds(200, 350, 200, 50);
         f.add(datePicker);
 
@@ -169,12 +170,12 @@ public class MenuRegister {
         sub = new JButton("Submit");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
         sub.setSize(100, 20);
-        sub.setLocation(150, 600);
+        sub.setLocation(100, 600);
         sub.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                JFrame f2 = new JFrame();
+                f2 = new JFrame();
                 f2.setTitle("Check Again");
                 f2.setSize(800, 800);
                 f2.setResizable(false);
@@ -190,8 +191,10 @@ public class MenuRegister {
                 String cekAlamat = talamat.getText();
                 String cekGender = "";
                 String cekPassword = String.valueOf(tpassword.getPassword());
-                String cekTanggalLahir = datePicker.getModel().getValue().toString();
-                String TTL = cekTempatLahir + "," + cekTanggalLahir;
+                String hari = String.valueOf(datePicker.getModel().getDay());
+                String bulan = String.valueOf(datePicker.getModel().getMonth());
+                String tahun = String.valueOf(datePicker.getModel().getYear());
+                String TTL = cekTempatLahir + "," + hari + "-" + bulan + "-" + tahun;
                 EnumJabatan j;
                 if (cekJabatan.equals("kasir")) {
                     j = EnumJabatan.KASIR;
@@ -204,6 +207,12 @@ public class MenuRegister {
                 } else if (female.isSelected()) {
                     cekGender = female.getText();
                 }
+
+                title = new JLabel("Confirmation");
+                title.setFont(new Font("Arial", Font.PLAIN, 30));
+                title.setSize(300, 30);
+                title.setLocation(300, 30);
+                f2.add(title);
 
                 nama = new JLabel("Nama : " + cekNama);
                 nama.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -241,22 +250,22 @@ public class MenuRegister {
                 gender.setLocation(100, 350);
                 f2.add(gender);
 
+                gaji = new JLabel("Gaji : " + cekGaji);
+                gaji.setFont(new Font("Arial", Font.PLAIN, 20));
+                gaji.setSize(300, 20);
+                gaji.setLocation(100, 400);
+                f2.add(gaji);
+
                 password = new JLabel("Retype Password : ");
                 password.setFont(new Font("Arial", Font.PLAIN, 20));
                 password.setSize(200, 20);
-                password.setLocation(100, 400);
+                password.setLocation(100, 450);
                 f2.add(password);
 
                 pass = new JPasswordField();
                 pass.setSize(300, 20);
-                pass.setLocation(200, 400);
+                pass.setLocation(100, 500);
                 f2.add(pass);
-
-                gaji = new JLabel("Gaji : " + cekGaji);
-                gaji.setFont(new Font("Arial", Font.PLAIN, 20));
-                gaji.setSize(300, 20);
-                gaji.setLocation(100, 450);
-                f2.add(gaji);
 
                 String kirimGender = cekGender;
 
@@ -267,6 +276,7 @@ public class MenuRegister {
                 f2.add(warning);
 
                 insert = new JButton("Insert");
+                insert.setFont(new Font("Arial", Font.PLAIN, 15));
                 insert.setSize(100, 20);
                 insert.setLocation(100, 600);
                 insert.addActionListener(new ActionListener() {
@@ -308,18 +318,18 @@ public class MenuRegister {
                 });
                 f2.add(insert);
 
-                cancel = new JButton("Cancel");
-                cancel.setFont(new Font("Arial", Font.PLAIN, 15));
-                cancel.setSize(100, 20);
-                cancel.setLocation(250, 600);
-                cancel.addActionListener(new ActionListener() {
+                cancel2 = new JButton("Cancel");
+                cancel2.setFont(new Font("Arial", Font.PLAIN, 15));
+                cancel2.setSize(100, 20);
+                cancel2.setLocation(250, 600);
+                cancel2.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         f2.setVisible(false);
                         f.setVisible(true);
                     }
                 });
-                f.add(cancel);
+                f2.add(cancel2);
                 f2.setVisible(true);
             }
         });
@@ -346,7 +356,7 @@ public class MenuRegister {
         cancel = new JButton("Cancel");
         cancel.setFont(new Font("Arial", Font.PLAIN, 15));
         cancel.setSize(100, 20);
-        cancel.setLocation(250, 600);
+        cancel.setLocation(400, 600);
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

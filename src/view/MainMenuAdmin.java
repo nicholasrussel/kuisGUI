@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Controller;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,26 +17,32 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Admin;
+import model.UserManager;
 
 /**
  *
  * @author Nicholas Russel
  */
-public class MainMenuAdmin extends JFrame implements ActionListener {
+public class MainMenuAdmin extends JFrame{
 
     // Components of the Form
     private Container c;
     private JLabel title;
-    private JButton registerKasir,updateKasir,deleteKasir;
-
+    private JButton registerKasir,updateKasir,deleteKasir,logout,bayarGaji;
+    private Admin admin;
     public MainMenuAdmin() {
+        admin = UserManager.getInstance().getAdmin();
+        
         setTitle("Menu Admin");
         setBounds(300, 90, 900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocationRelativeTo(null);
 
         c = getContentPane();
         c.setLayout(null);
@@ -84,14 +91,41 @@ public class MainMenuAdmin extends JFrame implements ActionListener {
             }
         });
         c.add(deleteKasir);
+        
+        bayarGaji = new JButton("Bayar Gaji");
+        bayarGaji.setFont(new Font("Arial", Font.PLAIN, 15));
+        bayarGaji.setSize(300, 20);
+        bayarGaji.setLocation(10, 250);
+        bayarGaji.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new MenuBayarGaji();
+            }
+        });
+        c.add(bayarGaji);
+        
+        logout = new JButton("Log Out");
+        logout.setFont(new Font("Arial", Font.PLAIN, 15));
+        logout.setSize(300, 20);
+        logout.setLocation(10, 300);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                JFrame Frame = new JFrame("Log Out");
+
+                if (JOptionPane.showConfirmDialog(Frame, "Are you sure want to Log Out?", "Minimarket",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    new MenuLogin();
+                } else {
+                    setVisible(true);
+                }
+            }
+        });
+        c.add(logout);
         setVisible(true);
     }
 
-    // method actionPerformed()
-    // to get the action performed
-    // by the user and act accordingly
-    public void actionPerformed(ActionEvent e) {
-        
-    }
 }
     

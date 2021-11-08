@@ -5,31 +5,33 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Nicholas Russel
  */
 public class Kehadiran implements InterfaceKehadiran{
     private int id_person;
-    private String tanggal;
+    private Date tanggal;
     private int jumlahHari;
     private int status;
     public Kehadiran(){
     
     }
     
-    public Kehadiran(int status, String tanggal, int jumlahHari,int id_person) {
+    public Kehadiran(int status, Date tanggal, int jumlahHari,int id_person) {
         setId_person(id_person);
         setStatus(status);
         setTanggal(tanggal);
         setJumlahHari(jumlahHari);
     }
 
-    public String getTanggal() {
+    public Date getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(String tanggal) {
+    public void setTanggal(Date tanggal) {
         this.tanggal = tanggal;
     }
 

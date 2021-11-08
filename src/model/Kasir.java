@@ -46,7 +46,6 @@ public class Kasir extends Person {
                 "\nTTL:\t\t"+getTtl()+
                 "\nAlamat:\t\t"+getAlamat()+
                 "\nTelepon:\t"+getNomorTelepon()+
-                "\nJabatan:\t"+getJabatan()+
                 "\nGaji:\t"+getGaji();
     }
 }

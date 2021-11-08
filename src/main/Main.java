@@ -24,9 +24,15 @@ public class Main {
         for (Kehadiran absen : hadir) {
             System.out.println(absen.toString());
         }
+        
+        Person pegawaiYangDibayar = controller.getKasir(1);
+                System.out.println(pegawaiYangDibayar.toString());
 //        User newUser = new User();
 //        newUser.setName("Heru");
 //        newUser.setAddress("jl Dago");
+
+
+
 //        newUser.setAge(15);
 //        newUser.setPhone("1234567");
 //        
@@ -40,7 +46,8 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        new view.MenuLogin();
+//        new view.MenuLogin();
+        new view.MenuBayarGaji();
        new Main();
        
     }

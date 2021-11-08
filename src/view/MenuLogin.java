@@ -11,13 +11,12 @@ import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import model.*;
 
 public class MenuLogin extends JFrame implements ActionListener {
-
-    Statement stat;
-    ResultSet rs;
-    String sql;
 
     // Components of the Form
     private Container c;
@@ -32,6 +31,7 @@ public class MenuLogin extends JFrame implements ActionListener {
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocationRelativeTo(null);
 
         c = getContentPane();
         c.setLayout(null);
@@ -114,41 +114,49 @@ public class MenuLogin extends JFrame implements ActionListener {
         int userID = Integer.parseInt(tID.getText());
         String password = c.getMD5(String.valueOf(tpass.getPassword()));
 
-        String pass = password.substring(0, 30);
+        String olahPassword = password.substring(0, 30);
 
+        Person login = c.getKasir(userID);
 
-        try {
-            String sql = "SELECT * FROM person WHERE Id_Person = '" + userID + "'";
-            Statement st = conn.con.createStatement();
-            ResultSet rsLogin = st.executeQuery(sql);
-            
-            if (rsLogin.next()) {
-                if (pass.equals(c.getSelectedPassword(userID))) {
-                    JOptionPane.showMessageDialog(null, "Login Berhasil!");
-                    String jabatan = c.getSelectedJabatan(userID).toLowerCase();
-                    String jabatanKasir = EnumJabatan.KASIR.toString().toLowerCase();
-                    String jabatanAdmin = EnumJabatan.ADMIN.toString().toLowerCase();
-                    if (jabatan.equals(jabatanKasir)) {
-                        new MainMenuKasir();
-                        this.dispose();
+        if (login != null) {
+            if (olahPassword.equals(c.getSelectedPassword(userID))) {
+                JOptionPane.showMessageDialog(rootPane, "Login Berhasil!");
+                UserManager.getInstance().setUser(login);
+                String jabatan = c.getSelectedJabatan(userID).toLowerCase();
+                String jabatanKasir = EnumJabatan.KASIR.toString().toLowerCase();
+                String jabatanAdmin = EnumJabatan.ADMIN.toString().toLowerCase();
+                if (jabatan.equals(jabatanKasir)) {
+                    LocalDate now = LocalDate.now();
+                    java.sql.Date sqlDate = java.sql.Date.valueOf(now);
+                    Kehadiran absenHariIni = c.cekSudahAbsen(userID, sqlDate);
+
+                    if (absenHariIni.getTanggal() == null) {
+                        int statusHadir = 1;
+                        boolean absensi = c.insertAbsenKehadiran(sqlDate, userID, statusHadir);
+                        JOptionPane.showMessageDialog(rootPane, "Absen Berhasil!");
+
                     } else {
-                        new MainMenuAdmin();
-                        this.dispose();
+                        JOptionPane.showMessageDialog(rootPane, "Sudah Absen!");
                     }
 
+                    new MainMenuKasir();
+                    this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Password Salah");
+                    new MainMenuAdmin();
+                    this.dispose();
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Maaf, Username / Password salah!");
-
+                JOptionPane.showMessageDialog(rootPane, "Password Salah");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+        } else {
+            JOptionPane.showMessageDialog(null, "Maaf, Username / Password salah!");
+
+        }
     }
+
+}
 // ' AND password='"+password+" && password.equals(rs.getString("Password")) User specificUser = controller.getUser("Budi","jl du"); "SELECT * FROM person WHERE Id_Person='"+userID+"'"
 //    public Person getUser(String userName, String password) {
 //        Controller controller =  new Controller();
@@ -177,4 +185,4 @@ public class MenuLogin extends JFrame implements ActionListener {
 //        return (user);
 //    }
 
-}
+

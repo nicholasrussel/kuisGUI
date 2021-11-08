@@ -8,6 +8,7 @@ package controller;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,8 +49,29 @@ public class Controller {
         return (cashier);
     }
 
-    // SELECT ALL from table barang
-    public static ArrayList<Kehadiran> getAllKehadiran() {
+    public Kasir getKasir(int ID) {
+        conn.connect();
+        String query = "SELECT * FROM person WHERE Id_Person='" + ID + "'";
+        Kasir kasir = new Kasir();
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+
+                kasir.setName(rs.getString("Name"));
+                kasir.setAlamat(rs.getString("Alamat"));
+                kasir.setId_person(rs.getInt("Id_Person"));
+                kasir.setNomorTelepon(rs.getString("Nomor_Telepon"));
+                kasir.setTtl(rs.getString("TTL"));
+                kasir.setGaji(rs.getInt("Gaji"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (kasir);
+    }
+
+    public ArrayList<Kehadiran> getAllKehadiran() {
         ArrayList<Kehadiran> Kehadirans = new ArrayList<>();
         conn.connect();
         String query = "SELECT * FROM kehadiran";
@@ -58,9 +80,8 @@ public class Controller {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Kehadiran hadir = new Kehadiran();
-                hadir.setTanggal(rs.getString("Tanggal_Masuk"));
+                hadir.setTanggal(rs.getDate("Tanggal_Masuk"));
                 hadir.setId_person(rs.getInt("Id_Person"));
-                hadir.setJumlahHari(rs.getInt("Jumlah hari"));
                 hadir.setStatus(rs.getInt("Status"));
                 Kehadirans.add(hadir);
 
@@ -69,6 +90,31 @@ public class Controller {
             e.printStackTrace();
         }
         return (Kehadirans);
+    }
+
+    public int getKehadiranKasir(int ID, String tanggal1, String tanggal2) {
+//        ArrayList<Kehadiran> kehadirans = new ArrayList<>();
+        Kehadiran hadir = new Kehadiran();
+        int count=0;
+        conn.connect();
+        String query = "SELECT COUNT(Status)AS StatusCount FROM kehadiran WHERE Id_Person = '" + ID+ "'AND Status = '" + 1 + "'AND Tanggal_Masuk between Date'" + tanggal1 + "'AND Date'" + tanggal2 + "'" ;
+        //"SELECT COUNT(Status)AS StatusCount FROM kehadiran WHERE Id_Person = '" + ID + "' AND Status = '" + 1 + "' AND Tanggal_Masuk between CAST('" + tanggal1 + "' AS DATE) and CAST('" + tanggal2 + "' AS DATE)"
+        //AND Tanggal_Masuk between Date'" + tanggal1 + "'AND Date'" + tanggal2 + "'"
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+
+//                hadir.setTanggal(rs.getDate("Tanggal_Masuk"));
+//                hadir.setId_person(rs.getInt("Id_Person"));
+                count=rs.getInt("StatusCount");
+//                kehadirans.add(hadir);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (count);
     }
 
     public String getSelectedPassword(int ID) {
@@ -86,7 +132,8 @@ public class Controller {
         }
         return password;
     }
-    public String getSelectedJabatan(int ID){
+
+    public String getSelectedJabatan(int ID) {
         String jabatan = "";
         conn.connect();
         String query = "SELECT * FROM person WHERE Id_Person = '" + ID + "'";
@@ -100,22 +147,6 @@ public class Controller {
             e.printStackTrace();
         }
         return jabatan;
-    }
-
-    public Person getKasir(int ID) {
-        conn.connect();
-        String query = "SELECT * FROM person WHERE Id_Person='" + ID + "'";
-        Person person = new Kasir();
-        try {
-            Statement stmt = conn.con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                person.setId_person(rs.getInt("Id_Person"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return (person);
     }
 
     public String getMD5(String password) {
@@ -140,10 +171,49 @@ public class Controller {
             throw new RuntimeException(e);
         }
     }
-    public static boolean insertNewUser(Kasir newPerson) {
+
+    public Kehadiran cekSudahAbsen(int ID, Date absen) {
+        Kehadiran hadir = new Kehadiran();
         conn.connect();
-        String query = "INSERT INTO person (Jabatan,Name,Alamat,Nomor_Telepon,TTL,Password,Gaji,Gender)" +
-  "VALUES (?, ?, ?,?, ?, ?,?, ?)";
+        String query = "SELECT * FROM kehadiran WHERE Id_Person = '" + ID + "' AND Tanggal_Masuk = '" + absen + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+
+                hadir.setTanggal(rs.getDate("Tanggal_Masuk"));
+                hadir.setId_person(rs.getInt("Id_Person"));
+                hadir.setStatus(rs.getInt("Status"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (hadir);
+    }
+
+    public boolean insertAbsenKehadiran(Date absen, int ID, int status) {
+        conn.connect();
+        String query = "INSERT INTO kehadiran (Tanggal_Masuk,Id_Person,Status)"
+                + "VALUES (?, ?, ?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setDate(1, absen);
+            stmt.setInt(2, ID);
+            stmt.setInt(3, status);
+            Kehadiran h = cekSudahAbsen(ID, absen);
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    public boolean insertNewUser(Kasir newPerson) {
+        conn.connect();
+        String query = "INSERT INTO person (Jabatan,Name,Alamat,Nomor_Telepon,TTL,Password,Gaji,Gender)"
+                + "VALUES (?, ?, ?,?, ?, ?,?, ?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1, newPerson.getJabatan().toString());
@@ -163,13 +233,13 @@ public class Controller {
     }
 
     // UPDATE
-    public static boolean updateKasir(int ID,String nama,String alamat,String nomor,int gaji) {
+    public boolean updateKasir(int ID, String nama, String alamat, String nomor, int gaji) {
         conn.connect();
-        String query = "UPDATE person SET Name='" + nama+ "', "
+        String query = "UPDATE person SET Name='" + nama + "', "
                 + "Alamat='" + alamat + "', "
-                + "Nomor_Telepon='" + nomor+ "',"
+                + "Nomor_Telepon='" + nomor + "',"
                 + "Gaji='" + gaji + "' "
-                + "WHERE Id_Person='" + ID+ "'";
+                + "WHERE Id_Person='" + ID + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -181,7 +251,7 @@ public class Controller {
     }
 
     // DELETE
-    public static boolean deleteUser(int ID) {
+    public boolean deleteUser(int ID) {
         conn.connect();
 
         String query = "DELETE FROM person WHERE Id_Person='" + ID + "'";

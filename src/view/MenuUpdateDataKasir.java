@@ -43,6 +43,7 @@ public class MenuUpdateDataKasir {
         f.setSize(800, 800);
         f.setResizable(false);
         f.setLayout(null);
+        f.setLocationRelativeTo(null);
 
         title = new JLabel("Update Kasir Form");
         title.setFont(new Font("Arial", Font.PLAIN, 30));

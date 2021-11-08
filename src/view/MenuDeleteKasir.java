@@ -30,7 +30,7 @@ public class MenuDeleteKasir {
 
     private JLabel title, id;
     private JTextField tid;
-    private JButton delete;
+    private JButton delete,cancel;
 
     public MenuDeleteKasir() {
         JFrame f = new JFrame();
@@ -38,6 +38,7 @@ public class MenuDeleteKasir {
         f.setSize(400, 400);
         f.setResizable(false);
         f.setLayout(null);
+        f.setLocationRelativeTo(null);
 
         title = new JLabel("Delete Kasir Form");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -60,16 +61,16 @@ public class MenuDeleteKasir {
         delete = new JButton("Delete");
         delete.setFont(new Font("Arial", Font.PLAIN, 15));
         delete.setSize(100, 20);
-        delete.setLocation(100, 200);
+        delete.setLocation(50, 200);
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
                 JFrame Frame = new JFrame("Confirmation");
-
+                Controller c = new Controller();
                 if (JOptionPane.showConfirmDialog(Frame, "confirm if you Want to Delete", "Minimarket",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    boolean status = Controller.deleteUser(Integer.parseInt(tid.getText()));
+                    boolean status = c.deleteUser(Integer.parseInt(tid.getText()));
                     if (status) {
                         JOptionPane.showMessageDialog(null, "Delete berhasil");
                         new MainMenuAdmin();
@@ -84,7 +85,19 @@ public class MenuDeleteKasir {
             }
         });
         f.add(delete);
-
+        cancel = new JButton("Cancel");
+        cancel.setFont(new Font("Arial", Font.PLAIN, 15));
+        cancel.setSize(100, 20);
+        cancel.setLocation(200, 200);
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(false);
+                new MainMenuAdmin();
+            }
+        });
+        f.add(cancel);
+        
         f.setVisible(true);
     }
 }
