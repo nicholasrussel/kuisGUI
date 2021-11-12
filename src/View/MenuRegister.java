@@ -8,15 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Properties;
-import model.*;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+import Model.User;
+
 
 public class MenuRegister {
 
-    private JFrame f, f2;
+    private JFrame f;
     private JLabel title, name, email, category, password;
     private JPasswordField tpassword;
     private JTextField tname, tEmail;
@@ -42,25 +39,25 @@ public class MenuRegister {
         email = new JLabel("Email");
         email.setFont(new Font("Arial", Font.PLAIN, 15));
         email.setSize(300, 20);
-        email.setLocation(100, 250);
+        email.setLocation(100, 100);
         f.add(email);
 
-        tEmail = new JTextField("Gender");
+        tEmail = new JTextField();
         tEmail.setFont(new Font("Arial", Font.PLAIN, 15));
         tEmail.setSize(300, 20);
-        tEmail.setLocation(100, 250);
+        tEmail.setLocation(200, 100);
         f.add(tEmail);
 
         name = new JLabel("Name");
         name.setFont(new Font("Arial", Font.PLAIN, 15));
         name.setSize(300, 20);
-        name.setLocation(100, 100);
+        name.setLocation(100, 150);
         f.add(name);
 
         tname = new JTextField();
         tname.setFont(new Font("Arial", Font.PLAIN, 15));
         tname.setSize(200, 20);
-        tname.setLocation(200, 100);
+        tname.setLocation(200, 150);
         f.add(tname);
 
         category = new JLabel("Category");
@@ -75,22 +72,21 @@ public class MenuRegister {
         }
 
         comboBoxKategory = new JComboBox(country);
-        comboBoxKategory.setBounds(50, 50, 90, 20);
         f.add(comboBoxKategory);
-        f.setLayout(null);
-        f.setSize(400, 500);
-        f.setVisible(true);
+        comboBoxKategory.setSize(100, 20);
+        comboBoxKategory.setLocation(200,250);
+
 
         password = new JLabel("Password");
         password.setFont(new Font("Arial", Font.PLAIN, 15));
         password.setSize(300, 20);
-        password.setLocation(100, 450);
+        password.setLocation(100, 350);
         f.add(password);
 
         tpassword = new JPasswordField();
         tpassword.setFont(new Font("Arial", Font.PLAIN, 15));
         tpassword.setSize(200, 20);
-        tpassword.setLocation(200, 450);
+        tpassword.setLocation(200, 350);
         f.add(tpassword);
 
         sub = new JButton("Submit");
@@ -101,20 +97,12 @@ public class MenuRegister {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                f2 = new JFrame();
-                f2.setSize(800, 800);
-                f2.setResizable(false);
-                f2.setLayout(null);
                 String email = tEmail.getText();
                 String cekNama = tname.getText();
                 String cekPassword = String.valueOf(tpassword.getPassword());
-                int cekKategori = (int) comboBoxKategory.getItemAt(comboBoxKategory.getSelectedIndex());
-
-                title = new JLabel("Confirmation");
-                title.setFont(new Font("Arial", Font.PLAIN, 30));
-                title.setSize(300, 30);
-                title.setLocation(300, 30);
-                f2.add(title);
+                int cekKategori = (int) comboBoxKategory.getSelectedIndex();
+                
+                System.out.println(cekKategori);
 
                 Controller c = new Controller();
                 String hashedPass = c.getMD5(String.valueOf(cekPassword));
@@ -122,32 +110,16 @@ public class MenuRegister {
                 User newPerson = new User();
                 newPerson.setName(cekNama);
                 newPerson.setEmail(email);
-                newPerson.setCategory(cekKategori);
+                newPerson.setIdCategory(cekKategori);
                 newPerson.setPassword(subHashedPass);
                 boolean status = c.insertNewUser(newPerson);
                 if (status) {
                     JOptionPane.showMessageDialog(null, "isi data berhasil");
-                    f2.setVisible(false);
                     new MainMenu();
                 } else {
                     JOptionPane.showMessageDialog(null, "isi data gagal");
-                    f2.setVisible(false);
                     new MainMenu();
                 }
-
-                cancel2 = new JButton("Cancel");
-                cancel2.setFont(new Font("Arial", Font.PLAIN, 15));
-                cancel2.setSize(100, 20);
-                cancel2.setLocation(250, 600);
-                cancel2.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        f2.setVisible(false);
-                        f.setVisible(true);
-                    }
-                });
-                f2.add(cancel2);
-                f2.setVisible(true);
             }
         });
         f.add(sub);

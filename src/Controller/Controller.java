@@ -26,7 +26,7 @@ public class Controller {
     public static ArrayList<CategoryUser> getAllCategory() {
         ArrayList<CategoryUser> allUser = new ArrayList<>();
         conn.connect();
-        String query = "SELECT * FROM user";
+        String query = "SELECT * FROM categoryuser";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -86,10 +86,10 @@ public class Controller {
     public boolean insertNewUser(User newPerson) {
         conn.connect();
         String query = "INSERT INTO user (ID,Name,Email,Password,ID_Category)"
-                + "VALUES (?, ?, ?,?, ?, ?,?, ?)";
+                + "VALUES ( ?,?,?, ?, ?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
-            stmt.setInt(1, newPerson.getId());
+            stmt.setInt(1, 1);
             stmt.setString(2, newPerson.getName());
             stmt.setString(3, newPerson.getEmail());
             stmt.setString(4, newPerson.getPassword());

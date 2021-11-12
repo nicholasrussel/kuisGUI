@@ -105,25 +105,6 @@ public class MainMenu extends JFrame {
         });
         c.add(lihatDataPengguna);
 
-        logout = new JButton("Log Out");
-        logout.setFont(new Font("Arial", Font.PLAIN, 15));
-        logout.setSize(300, 20);
-        logout.setLocation(10, 30);
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                JFrame Frame = new JFrame("Log Out");
-
-                if (JOptionPane.showConfirmDialog(Frame, "Are you sure want to Log Out?", "Minimarket",
-                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    new MenuLogin();
-                } else {
-                    setVisible(true);
-                }
-            }
-        });
-        c.add(logout);
         setVisible(true);
 
     }
