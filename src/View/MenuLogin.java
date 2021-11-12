@@ -93,8 +93,6 @@ public class MenuLogin extends JFrame implements ActionListener {
 
         User login = c.getUsers(userEmail);
         
-        System.out.println(password);
-        System.out.println(olahPassword);
         if (login != null) {
             if (olahPassword.equals(c.getSelectedPassword(userEmail))) {
                 JOptionPane.showMessageDialog(rootPane, "Login Berhasil!");
