@@ -103,13 +103,11 @@ public class Controller {
     }
 
     // UPDATE
-    public boolean updateKasir(int ID, String nama, String alamat, String nomor, int gaji) {
+    public boolean updateKasir(int ID, String nama, String email) {
         conn.connect();
-        String query = "UPDATE person SET Name='" + nama + "', "
-                + "Alamat='" + alamat + "', "
-                + "Nomor_Telepon='" + nomor + "',"
-                + "Gaji='" + gaji + "' "
-                + "WHERE Id_Person='" + ID + "'";
+        String query = "UPDATE user SET Name='" + nama + "', "
+                + "Email='" + email + "', "
+                + "WHERE ID='" + ID + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -124,7 +122,7 @@ public class Controller {
     public boolean deleteUser(int ID) {
         conn.connect();
 
-        String query = "DELETE FROM person WHERE Id_Person='" + ID + "'";
+        String query = "DELETE FROM user WHERE ID='" + ID + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);

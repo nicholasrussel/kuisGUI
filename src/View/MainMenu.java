@@ -82,7 +82,7 @@ public class MainMenu extends JFrame {
         login = new JButton("Login");
         login.setFont(new Font("Arial", Font.PLAIN, 15));
         login.setSize(300, 20);
-        login.setLocation(10, 250);
+        login.setLocation(10, 200);
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,7 +92,7 @@ public class MainMenu extends JFrame {
         });
         c.add(login);
         
-        lihatDataPengguna = new JButton("Login");
+        lihatDataPengguna = new JButton("Lihat Data Pengguna");
         lihatDataPengguna.setFont(new Font("Arial", Font.PLAIN, 15));
         lihatDataPengguna.setSize(300, 20);
         lihatDataPengguna.setLocation(10, 250);
@@ -108,7 +108,7 @@ public class MainMenu extends JFrame {
         logout = new JButton("Log Out");
         logout.setFont(new Font("Arial", Font.PLAIN, 15));
         logout.setSize(300, 20);
-        logout.setLocation(10, 300);
+        logout.setLocation(10, 30);
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

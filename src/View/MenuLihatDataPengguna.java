@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
 import Controller.Controller;
 import Model.User;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,13 +31,14 @@ public class MenuLihatDataPengguna extends JFrame{
     private JTable table;
     private DefaultTableModel model;
     private JScrollPane sp;
+    private JButton cancel;
     private Container c;
     ArrayList<User> users = Controller.getAllUsers();
     ArrayList<Integer> listCheckedUser = new ArrayList<>();
     public MenuLihatDataPengguna() {
         
         setTitle("Main Menu");
-        setBounds(300, 90, 900, 600);
+        setSize(1000, 1000);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -105,6 +109,19 @@ public class MenuLihatDataPengguna extends JFrame{
         sp = new JScrollPane(table);
         sp.setBounds(20, 20, 750, 300);
         c.add(sp);
+        
+        cancel = new JButton("Cancel");
+        cancel.setFont(new Font("Arial", Font.PLAIN, 15));
+        cancel.setSize(100, 20);
+        cancel.setLocation(950, 950);
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new MainMenu();
+            }
+        });
+        c.add(cancel);
     }
 
 }
