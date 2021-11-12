@@ -87,9 +87,10 @@ public class Controller {
         conn.connect();
         String query = "INSERT INTO user (ID,Name,Email,Password,ID_Category)"
                 + "VALUES ( ?,?,?, ?, ?)";
+        double random = Math.random();  
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
-            stmt.setInt(1, 1);
+            stmt.setInt(1, (int) random);
             stmt.setString(2, newPerson.getName());
             stmt.setString(3, newPerson.getEmail());
             stmt.setString(4, newPerson.getPassword());

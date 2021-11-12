@@ -67,7 +67,7 @@ public class MenuRegister {
         f.add(category);
 
         ArrayList<Model.CategoryUser> kategori = Controller.getAllCategory();
-        for (int i = 0; i < kategori.size(); i++) {
+        for (int i = 1; i <= kategori.size(); i++) {
             country[i] = kategori.get(i).getName();
         }
 
