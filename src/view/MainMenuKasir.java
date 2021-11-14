@@ -100,7 +100,7 @@ public class MainMenuKasir extends JFrame {
                 if (JOptionPane.showConfirmDialog(Frame, "Are you sure want to Log Out?", "Minimarket",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     kasir=null;
-                    new MenuLogin();
+                    new Login();
                 } else {
                     setVisible(true);
                 }

@@ -26,13 +26,13 @@ import model.Kasir;
  *
  * @author Nicholas Russel
  */
-public class MenuDeleteKasir {
+public class DeleteKasir {
 
     private JLabel title, id;
     private JTextField tid;
     private JButton delete,cancel;
 
-    public MenuDeleteKasir() {
+    public DeleteKasir() {
         JFrame f = new JFrame();
         f.setTitle("Delete Kasir");
         f.setSize(400, 400);

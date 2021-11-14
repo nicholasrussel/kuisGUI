@@ -13,7 +13,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-public class MenuRegister {
+public class Register {
 
     private JFrame f, f2;
     private JLabel title, name, mno, gender, tempatLahir, tanggalLahir, alamat, jabatan, password, gaji;
@@ -28,7 +28,7 @@ public class MenuRegister {
     private JDatePanelImpl datePanel;
     private JDatePickerImpl datePicker;
 
-    public MenuRegister() {
+    public Register() {
         f = new JFrame();
         f.setTitle("Registration");
         f.setSize(800, 800);

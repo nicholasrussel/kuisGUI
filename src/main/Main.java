@@ -46,10 +46,12 @@ public class Main {
     }
     
     public static void main(String[] args) {
-//        new view.MenuLogin();
-//        new view.MenuBayarGaji();
-new view.MainMenuAdmin();
-       new Main();
+  //    new view.MenuLogin();
+ new view.BayarGaji();
+//new view.MainMenuAdmin();
+//new view.UpdateDataKasir();
+//new view.LihatKehadiran();
+//       new Main();
        
     }
 }

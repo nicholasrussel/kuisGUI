@@ -20,13 +20,13 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import model.Kasir;
+import model.Kehadiran;
 
 /**
  *
  * @author Nicholas Russel
  */
-public class LihatKasir extends JFrame{
+public class LihatKehadiran extends JFrame {
 
     private JTable table;
     private DefaultTableModel model;
@@ -35,11 +35,12 @@ public class LihatKasir extends JFrame{
     private JLabel title;
     private JButton back;
     ArrayList<Integer> listKasir = new ArrayList<>();
-    public LihatKasir(int pilih) {
+
+    public LihatKehadiran(int pilih) {
         Controller controller = new Controller();
-        ArrayList<Kasir> users = controller.getAllKasirs();
-        
-        setTitle("Lihat Pekerja");
+        ArrayList<Kehadiran> kehadiran = controller.getAllKehadiran();
+
+        setTitle("Lihat Kehadiran");
         setBounds(300, 90, 600, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -48,79 +49,73 @@ public class LihatKasir extends JFrame{
         c = getContentPane();
         c.setLayout(null);
 
-        title = new JLabel("Data Kasir");
+        title = new JLabel("Data Kehadiran");
         title.setFont(new Font("Arial", Font.PLAIN, 20));
         title.setSize(400, 30);
         title.setLocation(250, 30);
         c.add(title);
-        
+
         setVisible(true);
         model = new DefaultTableModel() {
             @Override
             public Class getColumnClass(int columnIndex) {
-                switch(columnIndex) {
-                    case 0 :
-                    case 5 :
-                    case 6 :
-                    case 7 :
+                switch (columnIndex) {
+                    case 0:
+                    case 5:
+                    case 6:
+                    case 7:
                         return Integer.class;
-                    case 8 :
+                    case 8:
                         return Boolean.class;
-                    default :
+                    default:
                         return String.class;
                 }
             }
         };
+        model.addColumn("Tanggal");
         model.addColumn("ID");
-        model.addColumn("Nama");
-        model.addColumn("Alamat");
-        model.addColumn("Nomor Telepon");
-        model.addColumn("Gaji");
+        model.addColumn("Status");
         table = new JTable(model);
-        
+
         //Looping Data to Table
-        for (int i=0; i<users.size(); i++) {
-            Kasir current = users.get(i);
-            Object[] addKasir = new Object[5];
-            addKasir[0] = current.getId_person();
-            addKasir[1] = current.getName();
-            addKasir[2] = current.getAlamat();
-            addKasir[3] = current.getNomorTelepon();
-            addKasir[4] = current.getGaji();
-            model = (DefaultTableModel)table.getModel();
-            model.addRow(addKasir);
+        for (int i = 0; i < kehadiran.size(); i++) {
+            Kehadiran current = kehadiran.get(i);
+            Object[] addKehadiran = new Object[3];
+            addKehadiran[0] = current.getTanggal();
+            addKehadiran[1] = current.getId_person();
+            addKehadiran[2] = current.getStatus();
+            model = (DefaultTableModel) table.getModel();
+            model.addRow(addKehadiran);
         }
 
         //Set Column Size
-        table.getColumnModel().getColumn(0).setPreferredWidth(2);
-        table.getColumnModel().getColumn(1).setPreferredWidth(200);
-        table.getColumnModel().getColumn(2).setPreferredWidth(60);
-        table.getColumnModel().getColumn(3).setPreferredWidth(60);
-        table.getColumnModel().getColumn(4).setPreferredWidth(60);
-        
+        table.getColumnModel().getColumn(0).setPreferredWidth(126);
+        table.getColumnModel().getColumn(1).setPreferredWidth(126);
+        table.getColumnModel().getColumn(2).setPreferredWidth(126);
+
         table.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
                 boolean added = false;
-                for(int i=0;i<table.getModel().getRowCount();i++) {
+                for (int i = 0; i < table.getModel().getRowCount(); i++) {
                     if ((Boolean) table.getModel().getValueAt(i, 8)) {
 
-                            listKasir.add(users.get(table.getSelectedRow()).getId_person());
+                        listKasir.add(kehadiran.get(table.getSelectedRow()).getId_person());
 
                         added = true;
                     }
-                    if(added) {
+                    if (added) {
                         break;
                     }
-                }     
+                }
             }
         });
-        
+
         table.setBounds(20, 60, 550, 100);
         sp = new JScrollPane(table);
         sp.setBounds(20, 60, 550, 100);
         c.add(sp);
-        
+
         back = new JButton("Back");
         back.setFont(new Font("Arial", Font.PLAIN, 15));
         back.setSize(100, 20);
@@ -128,7 +123,7 @@ public class LihatKasir extends JFrame{
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(pilih==0){
+                if (pilih == 0) {
                     setVisible(false);
                 } else {
                     setVisible(false);

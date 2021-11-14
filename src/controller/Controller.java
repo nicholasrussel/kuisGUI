@@ -24,8 +24,7 @@ public class Controller {
 
     static DatabaseHandler conn = new DatabaseHandler();
 
-    // SELECT ALL from table person
-    public static ArrayList<Kasir> getAllKasirs() {
+    public ArrayList<Kasir> getAllKasirs() {
         ArrayList<Kasir> cashier = new ArrayList<>();
         conn.connect();
         String query = "SELECT * FROM person WHERE Jabatan = '" + EnumJabatan.KASIR + "'";
@@ -70,7 +69,11 @@ public class Controller {
         }
         return (kasir);
     }
-
+    public int hitungGaji(int gaji,int hadir){
+        int total =0;
+        total = gaji*hadir;
+        return total;
+    }
     public ArrayList<Kehadiran> getAllKehadiran() {
         ArrayList<Kehadiran> Kehadirans = new ArrayList<>();
         conn.connect();

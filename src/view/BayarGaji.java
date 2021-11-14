@@ -26,18 +26,19 @@ import org.jdatepicker.impl.UtilDateModel;
  *
  * @author Nicholas Russel
  */
-public class MenuBayarGaji {
+public class BayarGaji {
 
-    private JFrame f, f2;
-    private JLabel title, id, nama, nomorTelp, gaji,periode,periode2;
+    private JFrame f, f2,fConfirmation;
+    private JLabel title, id, nama, nomorTelp, gaji, periode, periode2;
     private JTextField tid;
-    private JButton bayar, insert,cancel;
+    private JButton bayar, insert, cancel;
     private UtilDateModel model, model2;
     private Properties p, p2;
     private JDatePanelImpl datePanel, datePanel2;
     private JDatePickerImpl datePicker, datePicker2;
 
-    public MenuBayarGaji() {
+    public BayarGaji() {
+        new LihatKehadiran(0);
         f = new JFrame();
         f.setTitle("Bayar Gaji Kasir");
         f.setSize(600, 600);
@@ -62,13 +63,13 @@ public class MenuBayarGaji {
         tid.setSize(200, 20);
         tid.setLocation(50, 150);
         f.add(tid);
-        
+
         periode = new JLabel("Dari tanggal : ");
         periode.setFont(new Font("Arial", Font.PLAIN, 15));
         periode.setSize(300, 20);
         periode.setLocation(50, 200);
         f.add(periode);
-        
+
         model = new UtilDateModel();
         p = new Properties();
         p.put("text.today", "Today");
@@ -78,13 +79,13 @@ public class MenuBayarGaji {
         datePicker = new JDatePickerImpl(datePanel, new controller.DateFormatter());
         datePicker.setBounds(50, 250, 200, 50);
         f.add(datePicker);
-        
+
         periode2 = new JLabel("Sampai tanggal : ");
         periode2.setFont(new Font("Arial", Font.PLAIN, 15));
         periode2.setSize(300, 20);
         periode2.setLocation(50, 300);
         f.add(periode2);
-        
+
         model2 = new UtilDateModel();
         p2 = new Properties();
         p2.put("text.today", "Today");
@@ -103,29 +104,32 @@ public class MenuBayarGaji {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                JFrame Frame = new JFrame("Confirmation");
+                fConfirmation = new JFrame("Confirmation");
                 Controller c = new Controller();
                 f2 = new JFrame();
                 f2.setTitle("Bayar Gaji Kasir");
-                f2.setSize(600, 600);
+                f2.setSize(400, 400);
                 f2.setResizable(false);
                 f2.setLayout(null);
                 f2.setLocationRelativeTo(null);
-                
+
+                title = new JLabel("Confirmation Detail");
+                title.setFont(new Font("Arial", Font.PLAIN, 20));
+                title.setSize(300, 20);
+                title.setLocation(50, 30);
+                f2.add(title);
+
                 int userID = Integer.parseInt(tid.getText());
                 String hari = String.valueOf(datePicker.getModel().getDay());
-                String bulan = String.valueOf(datePicker.getModel().getMonth()+1);
+                String bulan = String.valueOf(datePicker.getModel().getMonth() + 1);
                 String tahun = String.valueOf(datePicker.getModel().getYear());
                 String TTL = tahun + ":" + bulan + ":" + hari;
 
                 String hari2 = String.valueOf(datePicker2.getModel().getDay());
-                String bulan2 = String.valueOf(datePicker2.getModel().getMonth()+1);
+                String bulan2 = String.valueOf(datePicker2.getModel().getMonth() + 1);
                 String tahun2 = String.valueOf(datePicker2.getModel().getYear());
                 String TTL2 = tahun2 + ":" + bulan2 + ":" + hari2;
-                
-//                java.sql.Date sqldate =java.sql.Date.valueOf( TTL);
-//                java.sql.Date sqldate2 =java.sql.Date.valueOf( TTL2);
-                
+
                 Kasir pegawaiYangDibayar = c.getKasir(userID);
                 int hadir = c.getKehadiranKasir(userID, TTL, TTL2);
                 String bun = String.valueOf(datePicker.getModel().getMonth());
@@ -152,7 +156,7 @@ public class MenuBayarGaji {
                 nomorTelp.setLocation(50, 200);
                 f2.add(nomorTelp);
 
-                gaji = new JLabel("Gaji: " + pegawaiYangDibayar.getGaji()*hadir);
+                gaji = new JLabel("Gaji: " + c.hitungGaji(pegawaiYangDibayar.getGaji(), hadir));
                 gaji.setFont(new Font("Arial", Font.PLAIN, 15));
                 gaji.setSize(300, 20);
                 gaji.setLocation(50, 250);
@@ -166,7 +170,7 @@ public class MenuBayarGaji {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-                        if (JOptionPane.showConfirmDialog(Frame, "confirm if the details correct", "Minimarket",
+                        if (JOptionPane.showConfirmDialog(fConfirmation, "confirm if the details correct", "Minimarket",
                                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                             f2.setVisible(false);
                             JOptionPane.showMessageDialog(null, "Bayar Gaji berhasil");
@@ -180,11 +184,24 @@ public class MenuBayarGaji {
                     }
                 });
                 f2.add(bayar);
+
+                cancel = new JButton("Cancel");
+                cancel.setFont(new Font("Arial", Font.PLAIN, 15));
+                cancel.setSize(100, 20);
+                cancel.setLocation(160, 300);
+                cancel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        f.setVisible(false);
+                        new MainMenuAdmin();
+                    }
+                });
+                f2.add(cancel);
                 f2.setVisible(true);
             }
         });
         f.add(insert);
-        
+
         cancel = new JButton("Cancel");
         cancel.setFont(new Font("Arial", Font.PLAIN, 15));
         cancel.setSize(100, 20);
@@ -197,7 +214,7 @@ public class MenuBayarGaji {
             }
         });
         f.add(cancel);
-        
+
         f.setVisible(true);
     }
 }

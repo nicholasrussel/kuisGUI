@@ -11,21 +11,13 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import model.Admin;
 import model.Kasir;
@@ -37,7 +29,6 @@ import model.UserManager;
  */
 public class MainMenuAdmin extends JFrame{
 
-    // Components of the Form
     private JTable table;
     private DefaultTableModel model;
     private JScrollPane sp;
@@ -45,8 +36,6 @@ public class MainMenuAdmin extends JFrame{
     private JLabel title;
     private JButton registerKasir,updateKasir,deleteKasir,logout,bayarGaji;
     private Admin admin;
-    ArrayList<Kasir> users = Controller.getAllKasirs();
-    ArrayList<Integer> listCheckedBook = new ArrayList<>();
     public MainMenuAdmin() {
         admin = UserManager.getInstance().getAdmin();
         
@@ -73,7 +62,7 @@ public class MainMenuAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new MenuRegister();
+                new Register();
             }
         });
         c.add(registerKasir);
@@ -86,7 +75,7 @@ public class MainMenuAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new MenuUpdateDataKasir();
+                new UpdateDataKasir();
             }
         });
         c.add(updateKasir);
@@ -99,7 +88,7 @@ public class MainMenuAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new MenuDeleteKasir();
+                new DeleteKasir();
             }
         });
         c.add(deleteKasir);
@@ -112,7 +101,7 @@ public class MainMenuAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new MenuBayarGaji();
+                new BayarGaji();
             }
         });
         c.add(bayarGaji);
@@ -129,7 +118,7 @@ public class MainMenuAdmin extends JFrame{
 
                 if (JOptionPane.showConfirmDialog(Frame, "Are you sure want to Log Out?", "Minimarket",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    new MenuLogin();
+                    new Login();
                 } else {
                     setVisible(true);
                 }

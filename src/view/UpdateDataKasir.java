@@ -20,16 +20,16 @@ import javax.swing.JTextField;
  *
  * @author Nicholas Russel
  */
-public class MenuUpdateDataKasir {
-
+public class UpdateDataKasir {
+    private JFrame f,f2,konfirmasiUpdate,updateLagi;
     private JLabel title, id, name, mno, alamat, gaji;
     private JTextField tid, tname, tmno, tgaji;
-    private JButton sub, reset, cancel;
+    private JButton sub, reset, cancel,insert;
     private JTextArea talamat;
 
-    public MenuUpdateDataKasir() {
-        new LihatKasir();
-        JFrame f = new JFrame();
+    public UpdateDataKasir() {
+        new LihatKasir(0);
+        f = new JFrame();
         f.setTitle("Update Kasir");
         f.setSize(500, 500);
         f.setResizable(false);
@@ -110,55 +110,60 @@ public class MenuUpdateDataKasir {
         sub.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.setVisible(false);
-                JFrame f2 = new JFrame();
-                f2.setTitle("Check Again");
-                f2.setSize(800, 800);
-                f2.setResizable(false);
-                f2.setLayout(null);
-
-                JLabel id, nama, mno, alamat, gaji;
-                JButton insert,cancel;
                 int cekID = Integer.parseInt(tid.getText());
                 int cekGaji = Integer.parseInt(tgaji.getText());
                 String cekNama = tname.getText();
                 String cekmno = tmno.getText();
                 String cekAlamat = talamat.getText();
+                
+                f.setVisible(false);
+                f2 = new JFrame();
+                f2.setTitle("Check Again");
+                f2.setSize(400, 400);
+                f2.setResizable(false);
+                f2.setLocationRelativeTo(null);
+                f2.setLayout(null);
+                
+                title = new JLabel("Confirmation Detail");
+                title.setFont(new Font("Arial", Font.PLAIN, 20));
+                title.setSize(300, 20);
+                title.setLocation(50, 10);
+                f2.add(title);
 
                 id = new JLabel("ID : " + cekID);
-                id.setFont(new Font("Arial", Font.PLAIN, 20));
+                id.setFont(new Font("Arial", Font.PLAIN, 15));
                 id.setSize(300, 20);
-                id.setLocation(100, 100);
+                id.setLocation(50, 50);
                 f2.add(id);
 
-                nama = new JLabel("Nama : " + cekNama);
-                nama.setFont(new Font("Arial", Font.PLAIN, 20));
-                nama.setSize(300, 20);
-                nama.setLocation(100, 150);
-                f2.add(nama);
+                name = new JLabel("Nama : " + cekNama);
+                name.setFont(new Font("Arial", Font.PLAIN, 15));
+                name.setSize(300, 20);
+                name.setLocation(50, 100);
+                f2.add(name);
 
                 mno = new JLabel("Nomor Telepon : " + cekmno);
-                mno.setFont(new Font("Arial", Font.PLAIN, 20));
+                mno.setFont(new Font("Arial", Font.PLAIN, 15));
                 mno.setSize(300, 20);
-                mno.setLocation(100, 200);
+                mno.setLocation(50, 150);
                 f2.add(mno);
 
                 alamat = new JLabel("Alamat : " + cekAlamat);
-                alamat.setFont(new Font("Arial", Font.PLAIN, 20));
+                alamat.setFont(new Font("Arial", Font.PLAIN, 15));
                 alamat.setSize(300, 20);
-                alamat.setLocation(100, 250);
+                alamat.setLocation(50, 200);
                 f2.add(alamat);
 
                 gaji = new JLabel("Gaji : " + cekGaji);
-                gaji.setFont(new Font("Arial", Font.PLAIN, 20));
+                gaji.setFont(new Font("Arial", Font.PLAIN, 15));
                 gaji.setSize(300, 20);
-                gaji.setLocation(100, 300);
+                gaji.setLocation(50, 250);
                 f2.add(gaji);
                 
                 cancel = new JButton("Cancel");
                 cancel.setFont(new Font("Arial", Font.PLAIN, 15));
                 cancel.setSize(100, 20);
-                cancel.setLocation(400, 350);
+                cancel.setLocation(50, 300);
                 cancel.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -171,14 +176,14 @@ public class MenuUpdateDataKasir {
                 insert = new JButton("Insert");
                 insert.setFont(new Font("Arial", Font.PLAIN, 15));
                 insert.setSize(100, 20);
-                insert.setLocation(100, 350);
+                insert.setLocation(160, 300);
                 insert.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
                         f.setVisible(false);
-                        JFrame konfirmasiUpdate = new JFrame("Confirmation");
-                        JFrame updateLagi = new JFrame("Another Update?");
+                        konfirmasiUpdate = new JFrame("Confirmation");
+                        updateLagi = new JFrame("Another Update?");
                         Controller c = new Controller();
 
 

@@ -8,25 +8,20 @@ import controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.Date;
-import java.time.format.DateTimeFormatter;
 import model.*;
 
-public class MenuLogin extends JFrame implements ActionListener {
+public class Login extends JFrame implements ActionListener {
 
     // Components of the Form
     private Container c;
-    private JLabel title, ID, message, pass;
+    private JLabel title, ID, pass;
     private JTextField tID;
     private JPasswordField tpass;
     private JButton sub;
     static DatabaseHandler conn = new DatabaseHandler();
 
-    public MenuLogin() {
+    public Login() {
         setTitle("Login Form");
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,7 +36,8 @@ public class MenuLogin extends JFrame implements ActionListener {
         title.setSize(100, 80);
         title.setLocation(100, 30);
         c.add(title);
-
+        
+        
         ID = new JLabel("ID");
         ID.setFont(new Font("Arial", Font.PLAIN, 15));
         ID.setSize(100, 20);
@@ -76,38 +72,6 @@ public class MenuLogin extends JFrame implements ActionListener {
         setVisible(true);
 
     }
-
-    // method actionPerformed()
-    // to get the action performed
-    // by the user and act accordingly
-//    public void actionPerformed(ActionEvent event) {
-//
-//        int userID = Integer.parseInt(tID.getText());
-//        String password = String.valueOf(tpass.getPassword());
-//        conn.connect();
-//        Controller c = new Controller();
-//
-//        String oldPassword = c.getSelectedPassword(userID);
-//        try {
-//            String sql = "SELECT * FROM person WHERE Id_Person = '" + userID + "' AND Password = '" + password + "'";
-//            Statement st = conn.con.createStatement();
-//            ResultSet rsLogin = st.executeQuery(sql);
-//
-//            rsLogin.next();
-////            rsLogin.last(); //mengecek jumlah baris pada hasil query
-//            if (rsLogin.getRow() == 1) {
-//                JOptionPane.showMessageDialog(null, "Login Berhasil!");
-//                // new FrmMenuUtama().setVisible(true); //<-- BILA MAU DIARAHKAN KE Frame Menu Utama
-//                this.dispose();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Maaf, Username / Password salah!");
-//
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
     public void actionPerformed(ActionEvent event) {
         conn.connect();
         Controller c = new Controller();
@@ -124,7 +88,6 @@ public class MenuLogin extends JFrame implements ActionListener {
                 UserManager.getInstance().setUser(login);
                 String jabatan = c.getSelectedJabatan(userID).toLowerCase();
                 String jabatanKasir = EnumJabatan.KASIR.toString().toLowerCase();
-                String jabatanAdmin = EnumJabatan.ADMIN.toString().toLowerCase();
                 if (jabatan.equals(jabatanKasir)) {
                     LocalDate now = LocalDate.now();
                     java.sql.Date sqlDate = java.sql.Date.valueOf(now);
@@ -157,32 +120,5 @@ public class MenuLogin extends JFrame implements ActionListener {
     }
 
 }
-// ' AND password='"+password+" && password.equals(rs.getString("Password")) User specificUser = controller.getUser("Budi","jl du"); "SELECT * FROM person WHERE Id_Person='"+userID+"'"
-//    public Person getUser(String userName, String password) {
-//        Controller controller =  new Controller();
-//        Person specificUser = controller.getUser(userName);
-//        conn.connect();
-//        String query = "SELECT * FROM person WHERE Name='" + userName +"'";
-//        Person p = new Person();
-//        if (userName.trim().equals("admin") && password.trim().equals("admin")) {
-//            message.setText(" Hello " + userName + "");
-//        } else {
-//            message.setText(" Invalid user.. ");
-//        }
-//        try {
-//            Statement stmt = conn.con.createStatement();
-//            ResultSet rs = stmt.executeQuery(query);
-//            while (rs.next()) {
-//                user.setId(rs.getInt("ID"));
-//                user.setName(rs.getString("Name"));
-//                user.setAddress(rs.getString("Address"));
-//                user.setPhone(rs.getString("Phone"));
-//                user.setAge(rs.getInt("Age"));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return (user);
-//    }
 
 
