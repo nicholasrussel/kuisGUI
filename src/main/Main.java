@@ -47,7 +47,8 @@ public class Main {
     
     public static void main(String[] args) {
 //        new view.MenuLogin();
-        new view.MenuBayarGaji();
+//        new view.MenuBayarGaji();
+new view.MainMenuAdmin();
        new Main();
        
     }
