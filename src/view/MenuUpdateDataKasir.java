@@ -9,21 +9,12 @@ import controller.Controller;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Properties;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.EnumJabatan;
-import model.Kasir;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -32,90 +23,90 @@ import org.jdatepicker.impl.UtilDateModel;
 public class MenuUpdateDataKasir {
 
     private JLabel title, id, name, mno, alamat, gaji;
-    private JPasswordField tpassword;
     private JTextField tid, tname, tmno, tgaji;
     private JButton sub, reset, cancel;
     private JTextArea talamat;
 
     public MenuUpdateDataKasir() {
+        new LihatKasir();
         JFrame f = new JFrame();
         f.setTitle("Update Kasir");
-        f.setSize(800, 800);
+        f.setSize(500, 500);
         f.setResizable(false);
         f.setLayout(null);
         f.setLocationRelativeTo(null);
 
         title = new JLabel("Update Kasir Form");
-        title.setFont(new Font("Arial", Font.PLAIN, 30));
-        title.setSize(300, 30);
-        title.setLocation(300, 30);
+        title.setFont(new Font("Arial", Font.PLAIN, 20));
+        title.setSize(200, 30);
+        title.setLocation(50, 30);
         f.add(title);
 
         id = new JLabel("ID");
         id.setFont(new Font("Arial", Font.PLAIN, 15));
         id.setSize(300, 20);
-        id.setLocation(100, 100);
+        id.setLocation(20, 100);
         f.add(id);
 
         tid = new JTextField();
         tid.setFont(new Font("Arial", Font.PLAIN, 15));
         tid.setSize(200, 20);
-        tid.setLocation(200, 100);
+        tid.setLocation(150, 100);
         f.add(tid);
 
         name = new JLabel("Name");
         name.setFont(new Font("Arial", Font.PLAIN, 15));
         name.setSize(300, 20);
-        name.setLocation(100, 150);
+        name.setLocation(20, 150);
         f.add(name);
 
         tname = new JTextField();
         tname.setFont(new Font("Arial", Font.PLAIN, 15));
         tname.setSize(200, 20);
-        tname.setLocation(200, 150);
+        tname.setLocation(150, 150);
         f.add(tname);
 
         mno = new JLabel("Nomor Telepon");
         mno.setFont(new Font("Arial", Font.PLAIN, 15));
         mno.setSize(300, 20);
-        mno.setLocation(100, 200);
+        mno.setLocation(20, 200);
         f.add(mno);
 
         tmno = new JTextField();
         tmno.setFont(new Font("Arial", Font.PLAIN, 15));
         tmno.setSize(200, 20);
-        tmno.setLocation(200, 200);
+        tmno.setLocation(150, 200);
         f.add(tmno);
 
         gaji = new JLabel("Gaji");
         gaji.setFont(new Font("Arial", Font.PLAIN, 15));
         gaji.setSize(300, 20);
-        gaji.setLocation(100, 250);
+        gaji.setLocation(20, 250);
         f.add(gaji);
 
         tgaji = new JTextField();
         tgaji.setFont(new Font("Arial", Font.PLAIN, 15));
         tgaji.setSize(200, 20);
-        tgaji.setLocation(200, 250);
+        tgaji.setLocation(150, 250);
         f.add(tgaji);
 
         alamat = new JLabel("Alamat");
         alamat.setFont(new Font("Arial", Font.PLAIN, 15));
         alamat.setSize(300, 20);
-        alamat.setLocation(100, 300);
+        alamat.setLocation(20, 300);
         f.add(alamat);
 
         talamat = new JTextArea();
         talamat.setFont(new Font("Arial", Font.PLAIN, 15));
         talamat.setSize(200, 75);
-        talamat.setLocation(200, 300);
+        talamat.setLocation(150, 300);
         talamat.setLineWrap(true);
         f.add(talamat);
 
         sub = new JButton("Update");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
         sub.setSize(100, 20);
-        sub.setLocation(100, 400);
+        sub.setLocation(20, 400);
         sub.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -224,7 +215,7 @@ public class MenuUpdateDataKasir {
         reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
         reset.setSize(100, 20);
-        reset.setLocation(250, 400);
+        reset.setLocation(130, 400);
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -240,7 +231,7 @@ public class MenuUpdateDataKasir {
         cancel = new JButton("Cancel");
         cancel.setFont(new Font("Arial", Font.PLAIN, 15));
         cancel.setSize(100, 20);
-        cancel.setLocation(400, 400);
+        cancel.setLocation(240, 400);
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

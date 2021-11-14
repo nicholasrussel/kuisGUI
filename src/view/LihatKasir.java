@@ -29,7 +29,7 @@ import model.UserManager;
  *
  * @author Nicholas Russel
  */
-public class LihatPekerja extends JFrame{
+public class LihatKasir extends JFrame{
 
     // Components of the Form
     private JTable table;
@@ -37,13 +37,13 @@ public class LihatPekerja extends JFrame{
     private JScrollPane sp;
     private Container c;
     private JLabel title;
-    private JButton registerKasir,updateKasir,deleteKasir,logout,bayarGaji;
+    private JButton back;
     ArrayList<Kasir> users = Controller.getAllKasirs();
     ArrayList<Integer> listKasir = new ArrayList<>();
-    public LihatPekerja() {
+    public LihatKasir() {
         
         setTitle("Lihat Pekerja");
-        setBounds(300, 90, 900, 600);
+        setBounds(300, 90, 600, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -51,10 +51,10 @@ public class LihatPekerja extends JFrame{
         c = getContentPane();
         c.setLayout(null);
 
-        title = new JLabel("Data Pekerja");
+        title = new JLabel("Data Kasir");
         title.setFont(new Font("Arial", Font.PLAIN, 20));
         title.setSize(400, 30);
-        title.setLocation(300, 30);
+        title.setLocation(250, 30);
         c.add(title);
         
         setVisible(true);
@@ -119,10 +119,23 @@ public class LihatPekerja extends JFrame{
             }
         });
         
-        table.setBounds(20, 20, 750, 300);
+        table.setBounds(20, 60, 550, 100);
         sp = new JScrollPane(table);
-        sp.setBounds(20, 20, 750, 300);
+        sp.setBounds(20, 60, 550, 100);
         c.add(sp);
+        
+        back = new JButton("Back");
+        back.setFont(new Font("Arial", Font.PLAIN, 15));
+        back.setSize(100, 20);
+        back.setLocation(240, 200);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new MainMenuAdmin();
+            }
+        });
+        c.add(back);
     }
 
 }
